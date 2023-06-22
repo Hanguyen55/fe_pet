@@ -1,0 +1,158 @@
+@import "./Variable.scss";
+.heading {
+    position: relative;
+    width: 100%;
+    text-align: center;
+    margin-top: 2rem;
+    margin-bottom: 3rem;
+    z-index: 5;
+    &__title h3 {
+        font-size: 2rem;
+        font-weight: 500;
+    }
+    &__hr {
+        width: 200px;
+        height: 2px;
+        background-color: $colorOrange;
+        margin: 0 auto;
+        margin-top: 1rem;
+    }
+}
+
+.heading-detail {
+    margin-bottom: 2rem;
+    &__title h3 {
+        font-size: 2rem;
+        font-weight: 500;
+    }
+    &__hr {
+        width: 200px;
+        height: 2px;
+        background-color: $colorOrange;
+    }
+}
+
+.text-white {
+    color: white;
+    text-shadow: 2px 2px 5px black;
+}
+
+.link-color-orange {
+    color: $colorOrange;
+    text-decoration: none;
+    transition: 0.5s;
+    &:hover {
+        color: $colorViolet;
+    }
+}
+
+a {
+    text-decoration: none;
+}
+
+.MuiPagination-root {
+    margin: 1rem 0 2rem 0;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.MuiGrid-spacing-xs-2>.MuiGrid-item {
+    display: flex;
+}
+
+.add-admin {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 1rem;
+    button {
+        padding: 0;
+        margin: 0;
+        border: none;
+        background-color: transparent;
+        &:hover {
+            .icon {
+                background-color: white;
+                border: 1px solid $colorOrange;
+                svg {
+                    color: $colorOrange;
+                }
+            }
+        }
+    }
+    a {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        margin-bottom: 1rem;
+        padding: 0;
+        margin: 0;
+    }
+    .icon {
+        width: 30px;
+        height: 30px;
+        background-color: $colorOrange;
+        border-radius: 100%;
+        border: 1px solid $colorOrange;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        transition: 0.5s;
+        svg {
+            width: 20px;
+            height: 20px;
+            color: white;
+        }
+    }
+    .text {
+        margin-left: 0.5rem;
+        font-size: 1.2rem;
+        font-weight: 500;
+        color: $colorOrange;
+    }
+}
+
+p.text-danger {
+    font-size: 0.8rem;
+    color: $colorOrange;
+    margin-bottom: 0.3rem;
+}
+
+.colorOrange {
+    color: $colorOrange;
+}
+
+body {
+    &::-webkit-scrollbar {
+        width: 9px;
+        box-shadow: $boxShadow;
+        background-color: transparent;
+        padding-right: 0.1rem !important;
+    }
+    &::-webkit-scrollbar-thumb {
+        border-radius: 10px;
+        background-color: $colorOrange;
+    }
+}
+
+.red {
+    color: rgb(255, 0, 0);
+}
+
+.MuiBackdrop-root {
+    background-color: rgba(0, 0, 0, 0.2) !important;
+}
+
+.css-yk16xz-control {
+    border-color: gray !important;
+    &:hover {
+        border-color: gray !important;
+    }
+}
+
+.css-1pahdxg-control {
+    border-color: $colorViolet !important;
+    &:hover {
+        border: 1px solid !important;
+        border-color: $colorViolet !important;
+    }
+}

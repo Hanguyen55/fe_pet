@@ -1,0 +1,59 @@
+.RegisterService {
+    .content {
+        padding: 2rem 11rem;
+    }
+    .title {
+        &_header {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #f75a3f;
+        }
+        &_small {
+            font-style: italic;
+            color: #e93225;
+        }
+        margin-bottom: 1rem;
+    }
+    input {
+        max-width: 100%;
+    }
+    textarea {
+        max-width: 100%;
+    }
+    .MuiFormControl-root {
+        width: 100%;
+    }
+    .MuiInputBase-input {
+        padding: 14px 0 7px !important;
+    }
+    .Mui-focused {
+        color: black !important;
+    }
+    small {
+        display: block;
+    }
+    .btn {
+        padding: 0.5rem 1.5rem;
+        width: 100%;
+        border: 2px solid #f75a3f;
+        background-color: #f75a3f;
+        color: white;
+        font-size: 1.5rem;
+        margin-top: 2rem;
+        margin-bottom: 0.5rem;
+        border-radius: 10px;
+        cursor: pointer;
+        transition: 0.5s;
+        &:hover {
+            background-color: white;
+            color: #f75a3f;
+        }
+    }
+}
+
+label.MuiFormLabel-root.MuiInputLabel-root.MuiInputLabel-formControl.MuiInputLabel-animated.MuiInputLabel-shrink.MuiFormLabel-filled {
+    font-size: 1.4rem !important;
+    margin-bottom: 0.5rem !important;
+    font-weight: 500 !important;
+    color: black !important;
+}

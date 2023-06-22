@@ -1,0 +1,47 @@
+@import "../Variable.scss";
+.Breadcrumbs {
+  padding: 0.5rem 2rem;
+  margin-bottom: 2rem;
+  .list {
+    display: flex;
+    a {
+      font-size: 1rem;
+      text-decoration: none;
+      color: black;
+      font-weight: 500;
+      &::after {
+        content: ">";
+        margin: 0 0.5rem;
+      }
+      &:last-child::after {
+        content: "";
+      }
+      &:last-child {
+        color: gray;
+        cursor: default;
+      }
+      &:hover {
+        color: $colorOrange;
+        &::after {
+          color: black;
+        }
+        &:last-child {
+          color: gray;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 540px) {
+  .Breadcrumbs {
+    padding: 0.5rem 1rem;
+    .list {
+      a {
+        &::after {
+          margin: 0 0.2rem;
+        }
+      }
+    }
+  }
+}

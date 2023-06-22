@@ -1,0 +1,189 @@
+@import "../Variable.scss";
+.DetailNew {
+  .new {
+    &-title {
+      font-size: 2rem;
+      font-weight: 600;
+      letter-spacing: 0.1rem;
+      margin-bottom: 0.5rem;
+    }
+    &-tag {
+      display: flex;
+      .tag {
+        padding: 0.2rem 0.5rem;
+        background-color: $colorOrange;
+        color: white;
+        border-radius: 3px;
+        font-size: 0.9rem;
+        margin-right: 0.5rem;
+        font-weight: 300;
+        cursor: pointer;
+        transition: 0.5s;
+        border: 1px solid $colorOrange;
+        &:last-child {
+          margin-right: 0;
+        }
+        &:hover {
+          background-color: white;
+          color: $colorOrange;
+        }
+      }
+    }
+    &-author {
+      margin: 1rem 0 3rem 0;
+      display: flex;
+      align-items: center;
+      .avatar {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        overflow: hidden;
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+      }
+      .name {
+        margin-left: 1rem;
+        font-size: 1rem;
+        text-transform: capitalize;
+      }
+      .time {
+        margin-left: 0.5rem;
+      }
+    }
+    &-share {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin: 3rem 5rem;
+      padding: 1rem 2rem;
+      position: relative;
+      &::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 4px;
+        height: 100%;
+        border-radius: 5px;
+        background-color: $colorOrange;
+      }
+      .text {
+        font-size: 1.2rem;
+        font-weight: 500;
+        text-transform: capitalize;
+      }
+      .icon-share {
+        display: flex;
+        .icon {
+          width: 40px;
+          height: 40px;
+          display: flex;
+          margin-left: 0.5rem;
+          justify-content: center;
+          align-items: center;
+          border-radius: 5px;
+          cursor: pointer;
+          svg {
+            width: 20px;
+            height: 20px;
+            color: white;
+          }
+        }
+      }
+    }
+  }
+  .other {
+    &-new {
+      &-title {
+        font-size: 1.2rem;
+        font-weight: 500;
+        color: white;
+        background-color: $colorOrange;
+        padding: 0.6rem 0 0.6rem 1.5rem;
+        margin-bottom: 1rem;
+      }
+      &-content {
+        ul {
+          li {
+            list-style-type: none;
+            padding: 0.5rem 0;
+            a {
+              &:hover {
+                img {
+                  transform: scale(1.1);
+                }
+              }
+              .new-other {
+                display: flex;
+                align-items: center;
+                .img {
+                  width: 30%;
+                  height: auto;
+                  background-color: blue;
+                  overflow: hidden;
+                  display: flex;
+                  justify-content: center;
+                  align-items: center;
+                  img {
+                    width: 100%;
+                    height: 100%;
+                    object-fit: fill;
+                    transition: 0.5s;
+                  }
+                }
+                .title {
+                  color: black;
+                  width: 70%;
+                  font-size: 1rem;
+                  font-weight: 400;
+                  margin-left: 1rem;
+                  display: -webkit-box;
+                  -webkit-line-clamp: 2;
+                  -webkit-box-orient: vertical;
+                  text-overflow: ellipsis;
+                  overflow: hidden;
+                  transition: 0.5s;
+                  &:hover {
+                    color: $colorOrange;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+    .hr {
+      width: 100%;
+      height: 1px;
+      background-color: $colorOrange;
+      margin: 1rem 0;
+    }
+    .poster {
+      width: 100%;
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+    }
+  }
+}
+@media screen and (max-width: 576px) {
+  .DetailNew {
+    .new {
+      &-title {
+        font-size: 1.1rem;
+        font-weight: 600;
+        letter-spacing: 0.1rem;
+        margin-bottom: 0.5rem;
+      }
+      &-share {
+        margin: 0;
+      }
+    }
+  }
+}

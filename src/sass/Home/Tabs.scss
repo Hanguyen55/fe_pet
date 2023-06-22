@@ -1,0 +1,55 @@
+@import "../Variable.scss";
+.tabs {
+  .items {
+    display: flex;
+    flex-wrap: nowrap;
+    height: 50px;
+    box-shadow: $boxShadow;
+    position: relative;
+    border-radius: 4px;
+    .line {
+      width: 0;
+      height: 3px;
+      border-radius: 100px;
+      background-color: $colorOrange;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      transition: 0.5s;
+    }
+    .active {
+      color: $colorOrange;
+      transition: 0.5s;
+    }
+    .tab-item {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      font-weight: 500;
+      transition: 0.5s;
+      cursor: pointer;
+      &:hover {
+        color: $colorOrange;
+      }
+      .icon {
+        width: 20px;
+        height: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-right: 1rem;
+      }
+    }
+  }
+  .panes {
+    margin-top: 1rem;
+    .tab-pane {
+      display: none;
+    }
+    .active {
+      display: block;
+    }
+  }
+}

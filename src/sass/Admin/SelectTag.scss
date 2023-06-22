@@ -1,0 +1,81 @@
+@import "../Variable.scss";
+.SelectTag {
+  position: relative;
+  .input {
+    min-height: $inputHeight;
+    max-width: $inputMaxWidth;
+    border-radius: $inputRadius;
+    border: 1px solid gray;
+    padding: 0.2rem 0.5rem;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    .tag {
+      display: flex;
+      align-items: center;
+      background-color: #f0eeee;
+      border-radius: 2px;
+      padding: 0 0.2rem;
+      margin: 0.1rem 0.1rem;
+      border: 1px solid #e2e0e0;
+      &:first-child {
+        margin: 0;
+      }
+      //   max-width: 100%;
+      .tag-name {
+        font-size: 0.9rem;
+      }
+      .tag-close {
+        margin-left: 0.5rem;
+        cursor: pointer;
+        &:hover {
+          color: $colorOrange;
+        }
+      }
+    }
+  }
+
+  .dataSelect {
+    display: none;
+    position: absolute;
+    background-color: white;
+    width: $inputMaxWidth;
+    max-height: 200px;
+    overflow-y: scroll;
+    z-index: 200;
+    &::-webkit-scrollbar {
+      width: 4px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      border-radius: 10px;
+      background-color: $colorViolet;
+    }
+    padding: 0.5rem;
+
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
+      rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+    .tag {
+      .name {
+        padding: 0.5rem 0.5rem;
+        transition: 0.5s;
+        &:hover {
+          background-color: #f0eeee;
+        }
+      }
+    }
+    .active {
+      background-color: rgb(230 247 255);
+      transition: 0.5s;
+    }
+  }
+  .blur {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: transparent;
+    z-index: 100;
+  }
+}

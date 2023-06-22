@@ -1,0 +1,64 @@
+@import "../Variable.scss";
+.ListNews {
+  .content-item {
+    .item-new {
+      box-shadow: $boxShadow;
+      margin-bottom: 1rem;
+      border-radius: 5px;
+      overflow: hidden;
+      transition: 0.5s;
+
+      &:hover {
+        transform: translateY(-7px);
+        box-shadow: $boxShadowHover;
+        img {
+          transform: scale(1.1);
+        }
+      }
+      .img {
+        width: 100%;
+        height: 200px;
+        overflow: hidden;
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          transition: 0.5s;
+        }
+      }
+      .text {
+        padding: 0.7rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        &-title {
+          margin-bottom: 1rem;
+          a {
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: black;
+            transition: 0.5s;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            &:hover {
+              color: $colorOrange;
+            }
+          }
+        }
+        &-content {
+          text-indent: 1.5rem;
+          margin-bottom: 0.5rem;
+          text-align: justify;
+          display: -webkit-box;
+          -webkit-line-clamp: 4;
+          -webkit-box-orient: vertical;
+          text-overflow: ellipsis;
+          overflow: hidden;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,101 @@
+@import "../Variable.scss";
+.Footer {
+  margin-top: 1rem;
+  padding: 3rem 0 4rem 0;
+  background: url("../../images/dots.png");
+  color: white;
+  background-color: #353a40;
+  .about {
+    text-indent: 1rem;
+  }
+  .footer-content {
+    .footer-item {
+      display: flex;
+      flex-direction: column;
+      padding: 0 1rem;
+      margin-bottom: 2rem;
+      .item-title {
+        font-size: 1.3rem;
+        font-weight: 500;
+        text-transform: capitalize;
+        letter-spacing: 0.1rem;
+      }
+      .hr {
+        margin: 0.5rem 0 1rem 0;
+        width: 90%;
+        height: 1px;
+        background-color: $colorOrange;
+      }
+      .item-content {
+        font-size: 1rem;
+        font-weight: 400;
+        text-align: justify;
+        .address,
+        .phone,
+        .email {
+          font-weight: 500;
+          span {
+            font-weight: 400;
+            font-style: italic;
+            margin-left: 1rem;
+          }
+          margin-bottom: 0.5rem;
+        }
+        .item-link {
+          display: flex;
+          flex-direction: column;
+          .link {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.5rem;
+            .icon {
+              width: 15px;
+              height: 15px;
+              svg {
+                width: inherit;
+                height: inherit;
+              }
+            }
+            a {
+              text-decoration: none;
+              color: white;
+
+              transition: 0.5s;
+              margin-left: 0.6rem;
+              &:hover {
+                color: $colorOrange;
+                transform: translateX(10px);
+              }
+            }
+            &:last-child {
+              margin-bottom: 0;
+            }
+          }
+        }
+      }
+      &:last-child {
+        .item-content {
+          display: flex;
+          flex-wrap: wrap;
+          .icon {
+            border-radius: 50%;
+            position: relative;
+            z-index: 20;
+            width: 45px;
+            height: 45px;
+            margin-right: 1rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            svg {
+              width: 20px;
+              height: 20px;
+              transition: 0.5s;
+            }
+          }
+        }
+      }
+    }
+  }
+}

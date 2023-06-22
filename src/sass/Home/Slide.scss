@@ -1,0 +1,128 @@
+.Slide {
+  width: 100%;
+  height: 550px;
+  .slideWrapper {
+    width: inherit;
+    height: inherit;
+    position: relative;
+    .slides {
+      width: inherit;
+      height: inherit;
+    }
+    .slide-item {
+      display: none;
+      width: inherit;
+      height: inherit;
+      position: relative;
+      &::after {
+        content: "";
+        width: 100%;
+        height: inherit;
+        clip-path: polygon(0 0, 15% 0, 37% 100%, 0% 100%);
+        position: absolute;
+        top: 0;
+        left: 0;
+        background-color: currentColor;
+        opacity: 0.5;
+        z-index: 2;
+        animation: tamgiac 1s;
+        transition: 0.5s;
+      }
+    }
+    .slide-active {
+      display: block;
+    }
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      animation: imgSlide 1s;
+    }
+    .slide-content {
+      position: absolute;
+      top: 200px;
+      left: 90px;
+      color: white;
+      max-width: 290px;
+      height: inherit;
+      z-index: 100;
+      text-shadow: 1px 1px 2px black;
+      .hr {
+        width: 50px;
+        height: 2px;
+        background-color: white;
+        margin: 1rem 0;
+      }
+      h1 {
+        font-size: 3rem;
+        font-weight: 100;
+        letter-spacing: 0.1rem;
+      }
+      h3 {
+        font-size: 2rem;
+        font-weight: 300;
+      }
+      button {
+        padding: 1rem 2rem;
+        background-color: transparent;
+        color: white;
+        border: 1px solid white;
+        border-radius: 5px;
+        margin-top: 2rem;
+        cursor: pointer;
+        transition: 0.5s;
+        &:hover {
+          background-color: rgba(255, 255, 255, 0.562);
+          color: black;
+        }
+      }
+    }
+  }
+  position: relative;
+  .blur {
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.4);
+    z-index: 1;
+  }
+}
+@keyframes tamgiac {
+  0% {
+    clip-path: polygon(0 0, 10% 0, 32% 100%, 0% 100%);
+    opacity: 0.1;
+  }
+  100% {
+    clip-path: polygon(0 0, 15% 0, 37% 100%, 0% 100%);
+    opacity: 0.5;
+  }
+}
+@keyframes imgSlide {
+  from {
+    opacity: 0.7;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@media screen and (max-width: 937px) {
+  .slide-item::after {
+    clip-path: polygon(0 0, 0% 0, 0% 100%, 0% 100%) !important;
+  }
+}
+@media screen and (max-width: 768px) {
+  .Slide {
+    .slide-content {
+      left: 50px !important;
+    }
+  }
+}
+@media screen and (max-width: 576px) {
+  .Slide {
+    .slide-content {
+      left: 40px !important;
+    }
+  }
+}

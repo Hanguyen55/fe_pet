@@ -1,0 +1,279 @@
+@import "../Variable.scss";
+.hident-menu {
+    display: none !important;
+}
+
+.Menu {
+    background-color: transparent;
+    width: 100%;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: fixed;
+    z-index: 200;
+    animation: scrollMenuTop 1s;
+    .blur {
+        position: fixed;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+    }
+    .menu-logo {
+        a {
+            font-size: 2rem;
+            margin-left: 2rem;
+            color: $colorOrange;
+            text-shadow: 1px 1px 2px black;
+        }
+    }
+    .menu-item {
+        .list-item ul {
+            display: flex;
+            list-style-type: none;
+            li {
+                padding: 1rem 0.5rem;
+                margin-right: 1rem;
+                a {
+                    text-decoration: none;
+                    text-transform: capitalize;
+                    color: white;
+                    font-weight: 500;
+                    text-shadow: 1px 1px 2px black;
+                    position: relative;
+                    &::after {
+                        content: "";
+                        height: 2px;
+                        background-color: $colorOrange;
+                        position: absolute;
+                        transition: 0.5s;
+                        width: 0;
+                        bottom: -20%;
+                        left: 50%;
+                        transform: translateX(-50%) translateY(-50%);
+                    }
+                    &:hover::after {
+                        width: 100%;
+                    }
+                }
+            }
+        }
+    }
+    .menu-account {
+        margin-right: 2rem;
+        display: flex;
+        align-items: center;
+        .search {
+            position: relative;
+            cursor: pointer;
+            input {
+                padding: 0.5rem 0;
+                padding-left: 1rem;
+                padding-right: 31px;
+                border-radius: 50px;
+                border: 1px solid gray;
+                outline: none;
+            }
+            .icon {
+                width: 30px;
+                height: 33px;
+                position: absolute;
+                border-top-right-radius: 50px;
+                border-bottom-right-radius: 50px;
+                top: 0;
+                right: 0;
+                background-color: $colorOrange;
+                .fa-search {
+                    width: 15px;
+                    height: 15px;
+                    position: absolute;
+                    color: white;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+                }
+            }
+        }
+        .avatar {
+            width: 40px;
+            height: 40px;
+            margin: 0 1rem;
+            cursor: pointer;
+            img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                border-radius: 50%;
+            }
+        }
+    }
+    .menu-bar {
+        width: 35px;
+        height: 35px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: $colorOrange;
+        border-radius: 5px;
+        cursor: pointer;
+        margin-right: 2rem;
+        display: none;
+        .icon-bar {
+            color: white;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    }
+    .select {
+        position: absolute;
+        box-shadow: $boxShadowHover;
+        left: 100%;
+        top: 85px;
+        background-color: white;
+        width: 200px;
+        border-radius: 5px;
+        padding: 0.5rem 1rem;
+        animation: openSelect 0.5s forwards;
+        ul {
+            list-style-type: none;
+            li {
+                a {
+                    padding: 0.5rem 0;
+                    display: block;
+                    color: black;
+                    display: flex;
+                    align-items: center;
+                    .icon {
+                        width: 20px;
+                        height: 20px;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        margin-right: 1rem;
+                        svg {
+                            width: 20px;
+                            height: 20px;
+                            color: gray;
+                        }
+                    }
+                    &:hover {
+                        color: $colorOrange;
+                    }
+                }
+            }
+        }
+    }
+    .hident {
+        animation: closeSelect 0.5s;
+    }
+}
+
+.menu-scroll {
+    height: 80px;
+    background-color: white;
+    animation: scrollMenuBot 1s;
+    box-shadow: $boxShadow;
+    .menu-logo {
+        a {
+            color: $colorOrange !important;
+        }
+    }
+    a {
+        color: black !important;
+        text-shadow: none !important;
+    }
+}
+
+@keyframes openSelect {
+    0% {
+        transform: translateX(0);
+    }
+    70% {
+        transform: translateX(-260px);
+    }
+    100% {
+        transform: translateX(-250px);
+    }
+}
+
+@keyframes closeSelect {
+    100% {
+        transform: translateX(0);
+    }
+    30% {
+        transform: translateX(-260px);
+    }
+    0% {
+        transform: translateX(-250px);
+    }
+}
+
+@keyframes scrollMenuBot {
+    from {
+        height: 100px;
+        background-color: transparent;
+    }
+    to {
+        height: 80px;
+        background-color: white;
+    }
+}
+
+@keyframes scrollMenuTop {
+    from {
+        height: 80px;
+        background-color: white;
+    }
+    to {
+        height: 100px;
+        background-color: transparent;
+    }
+}
+
+@media screen and (max-width: 937px) {
+    .menu-bar {
+        display: flex !important;
+    }
+    #menu-hide {
+        position: absolute;
+        top: 80px;
+        left: 50%;
+        transform: translateX(-50%);
+        background-color: white;
+        width: 90%;
+        flex-direction: column;
+        height: 0;
+        overflow: hidden;
+        transition: 0.5s;
+        .list-item ul {
+            flex-direction: column !important;
+            align-items: center;
+            li {
+                margin: 0;
+                a {
+                    color: black;
+                    text-shadow: none;
+                }
+            }
+        }
+        .menu-account {
+            justify-content: center;
+            padding: 2rem;
+            margin-right: 0;
+        }
+    }
+}
+
+@media screen and (max-width: 576px) {
+    .Menu {
+        .menu-account .search {
+            input {
+                width: 100px;
+            }
+        }
+    }
+}

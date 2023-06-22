@@ -1,0 +1,80 @@
+@import "../Variable.scss";
+.input-admin {
+  display: flex;
+  flex-direction: column;
+  margin: 0.5rem 0;
+  label {
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+  }
+  input {
+    height: $inputHeight;
+    max-width: $inputMaxWidth;
+    font-size: 1rem;
+    padding: 0.5rem;
+    border: 1px solid gray;
+    outline: none;
+    border-radius: $inputRadius;
+    &:focus {
+      border-color: $colorViolet;
+    }
+  }
+  textarea {
+    padding: 0.5rem;
+    max-width: $inputMaxWidth;
+    resize: none;
+    outline: none;
+    border-radius: $inputRadius;
+    font-size: 1rem;
+    &:focus {
+      border-color: $colorViolet;
+    }
+  }
+  .text-danger {
+    margin-top: 0.2rem;
+    color: $colorOrange;
+  }
+  .icon-avatar {
+    label {
+      width: 40px;
+      height: 40px;
+      background-color: $colorOrange;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      margin: 0;
+      color: white;
+    }
+    svg {
+      width: 20px;
+      height: 20px;
+    }
+  }
+  .img-update {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+  }
+}
+.btn_submit {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 2rem;
+  input {
+    border-radius: 5px;
+    background-color: $colorOrange;
+    outline: none;
+    box-shadow: none;
+    border: none;
+    font-size: 1rem;
+    color: white;
+    font-weight: 500;
+    padding: 0.5rem 1rem;
+  }
+}
+.status-icon {
+  cursor: pointer;
+}

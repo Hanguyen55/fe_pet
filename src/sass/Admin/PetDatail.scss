@@ -1,0 +1,40 @@
+.PetDetail {
+  .content {
+    .title {
+      min-width: 200px;
+      font-size: 1.2rem;
+      font-weight: 500;
+    }
+    .avatar {
+      display: flex;
+      margin-top: 1rem;
+      img {
+        width: 200px;
+        height: 150px;
+        object-fit: cover;
+      }
+    }
+    .list-avatar {
+      display: flex;
+      margin-top: 1rem;
+      img {
+        width: 150px;
+        height: 100px;
+        object-fit: cover;
+        margin-right: 1rem;
+      }
+    }
+    .price {
+      display: flex;
+      margin-top: 1rem;
+    }
+    .description {
+      display: flex;
+      margin-top: 1rem;
+    }
+    .text {
+      display: flex;
+      margin-top: 1rem;
+    }
+  }
+}

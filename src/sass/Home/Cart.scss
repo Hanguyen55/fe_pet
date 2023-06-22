@@ -1,0 +1,150 @@
+@import "../Variable.scss";
+.cart {
+  width: 40px;
+  height: 40px;
+  border-radius: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  position: relative;
+
+  .number {
+    position: absolute;
+    left: 60%;
+    top: -5px;
+    color: white;
+    background-color: $colorOrange;
+    padding: 0 0.4rem;
+    border-radius: 50px;
+    line-height: 20px;
+    // display: flex;
+    // align-items: center;
+    // justify-content: center;
+  }
+  .icon {
+    width: 20px;
+    height: 20px;
+    svg {
+      width: inherit;
+      height: inherit;
+    }
+  }
+}
+.cart-content {
+  width: 800px;
+  .title {
+    font-size: 1.5rem;
+    font-weight: 500;
+    text-align: center;
+    margin-top: 1rem;
+    position: relative;
+    .hr {
+      position: absolute;
+      top: 110%;
+      left: 50%;
+      transform: translateY(-50%) translateX(-50%);
+      width: 200px;
+      height: 1px;
+      background-color: $colorOrange;
+    }
+  }
+  .content {
+    padding: 3rem 1rem 1rem 1rem;
+    .content-header {
+      display: flex;
+      align-items: center;
+      height: 50px;
+      box-shadow: $boxShadow;
+      border-radius: 5px;
+      font-size: 1.1rem;
+      font-weight: 500;
+      .sp {
+        justify-content: center;
+      }
+    }
+    .content-product {
+      display: flex;
+      margin: 1rem 0;
+      box-shadow: $boxShadow;
+      padding: 1rem 0;
+      .avatar {
+        width: 50px;
+        height: 50px;
+        margin-left: 1rem;
+        img {
+          border-radius: 2px;
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+      }
+      .text {
+        margin-left: 1rem;
+      }
+      .tt {
+        color: red;
+        text-decoration: underline;
+      }
+    }
+    .sp {
+      width: 300px;
+      display: flex;
+      align-items: center;
+    }
+    .dg {
+      width: 117px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .sl {
+      width: 117px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .st {
+      width: 117px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .tt {
+      width: 117px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+  .btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    button {
+      border: 1px solid $colorOrange;
+      color: $colorOrange;
+      background-color: transparent;
+      border-radius: 5px;
+      padding: 0.6rem 2rem;
+      margin-top: 2rem;
+      margin-bottom: 2rem;
+      transition: 0.5s;
+      cursor: pointer;
+      &:hover {
+        background-color: $colorOrange;
+        color: white;
+      }
+    }
+  }
+}
+.MuiPaper-root.MuiDrawer-paper.MuiDrawer-paperAnchorRight.MuiPaper-elevation16 {
+  &::-webkit-scrollbar {
+    width: 4px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background-color: $colorOrange;
+  }
+}
