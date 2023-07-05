@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
 import loginApi from "../../api/loginApi";
+import userApi from "../../api/userApi";
 import { userData } from "../../app/Slice/UserSlice";
 import { messageShowErr, messageShowSuccess } from "../../function";
 import imgDog from "../../images/login.png";
@@ -47,7 +48,15 @@ export default function Login() {
           setTimeout(() => {
             actionResult();
           }, 300);
-          history.push("/");
+          userApi.checkUser().then((ok) => {
+            console.log("đây là data đăng nhập",ok);
+            if(ok.role !== 0) {
+                history.push("/");
+            }else {
+                history.push("/Admin");
+            }
+        });
+        //   history.push("/");
         }
       });
   };

@@ -1,5 +1,5 @@
 import React from "react";
 
 export default function Statistical() {
-  return <div>Thống kê</div>;
+  return <div>Thống kê sdasfsf</div>;
 }

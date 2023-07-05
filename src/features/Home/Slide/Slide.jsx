@@ -52,7 +52,7 @@ export default function Slide() {
                 Cung cấp các dịch vụ chăm sóc đặc biệt cho thú cưng của bạn
               </span>
               <br />
-              <button>Xem ngay</button>
+              {/* <button>Xem ngay</button> */}
             </div>
           </div>
           <div className="slide-item " style={{ color: "#724c3d " }}>
@@ -65,7 +65,7 @@ export default function Slide() {
                 Cung cấp các dịch vụ chăm sóc đặc biệt cho thú cưng của bạn
               </span>
               <br />
-              <button>Xem ngay</button>
+              {/* <button>Xem ngay</button> */}
             </div>
           </div>
           <div className="slide-item " style={{ color: "#4c433c " }}>
@@ -78,7 +78,7 @@ export default function Slide() {
                 Cung cấp các dịch vụ chăm sóc đặc biệt cho thú cưng của bạn
               </span>
               <br />
-              <button>Xem ngay</button>
+              {/* <button>Xem ngay</button> */}
             </div>
           </div>
         </div>

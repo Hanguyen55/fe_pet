@@ -32,20 +32,20 @@ export default function InforUser() {
               <div className="icon">{setting}</div>
               Sửa thông tin
             </div>
-            <div className="tab-item ">
+            {/* <div className="tab-item ">
               <div className="icon">{dog}</div>
               Đăng bán thú cưng
             </div>
             <div className="tab-item ">
               <div className="icon">{cat}</div> Thú cưng của tôi
-            </div>
+            </div> */}
             <div className="line" ref={lineEl}></div>
           </div>
           <div className="panes" ref={panesEl}>
             <Information />
             <EditInformation />
-            <CreatePet />
-            <MyPet />
+            {/* <CreatePet />
+            <MyPet /> */}
           </div>
         </div>
       </Container>

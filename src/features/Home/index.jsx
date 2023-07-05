@@ -12,7 +12,7 @@ export default function Home() {
       <Slide />
       <AboutUs />
       <Services />
-      <Comment />
+      {/* <Comment /> */}
       <Gallery />
       <News />
     </>

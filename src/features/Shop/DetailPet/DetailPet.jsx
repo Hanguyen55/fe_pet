@@ -139,7 +139,7 @@ export default function DetailPet() {
                 <div className="add-cart" onClick={() => handleAddCart(data)}>
                   Thêm vào giỏ
                 </div>
-                <div className="buy">Mua ngay</div>
+                {/* <div className="buy">Mua ngay</div> */}
               </div>
             </div>
           </Grid>

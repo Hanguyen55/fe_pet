@@ -5,16 +5,20 @@ import {
   close,
   group,
   home,
+  iconLogout,
   profile,
   setting,
 } from "../svg/IconSvg";
 import img1 from "../../../images/pet8.jpg";
 import { useRef } from "react";
 import { useEffect } from "react";
+// import { userData, userInfor } from "../app/Slice/UserSlice";
+import { userData, userInfor } from "../../../app/Slice/UserSlice";
 import { clickAvatar, clickBar } from "./NavJs";
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 export default function NavHeading() {
+    const dispatch = useDispatch();
   const barEl = useRef(null);
   const liSelectEL = useRef(null);
   const user = useSelector((state) => state.user.user);
@@ -26,6 +30,12 @@ export default function NavHeading() {
   const hangdleClickBar = () => {
     setCheckBar(!checkBar);
   };
+  const hangdleLogout = (e) => {
+    localStorage.removeItem("tokenPet");
+    setTimeout(() => {
+      dispatch(userData());
+    }, 200);
+};
   return (
     <div className="Navheading">
       <div className="bar" onClick={hangdleClickBar} ref={barEl}>
@@ -50,12 +60,12 @@ export default function NavHeading() {
             </div>
             <div className="hr"></div>
             <ul>
-              <li>
+              {/* <li>
                 <Link to="/">
                   <div className="icon">{home}</div>
                   <div className="text">Trang chủ</div>
                 </Link>
-              </li>
+              </li> */}
               <li>
                 <Link to="#">
                   <div className="icon">{profile}</div>
@@ -66,6 +76,17 @@ export default function NavHeading() {
                 <Link to="#">
                   <div className="icon">{setting}</div>
                   <div className="setting">Chỉnh sửa</div>
+                </Link>
+              </li>
+              <li>
+                <Link to="#"
+                 onClick={() => {
+                    localStorage.removeItem("tokenPet");
+                    hangdleLogout();
+                    // ClickAvatar();
+                  }}>
+                    <div className="icon">{iconLogout}</div>
+                    <div className="text">Đăng xuất</div>
                 </Link>
               </li>
             </ul>

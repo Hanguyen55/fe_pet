@@ -105,11 +105,17 @@ export default function Menu({ user, setUserMenu }) {
               <li className="item">
                 <Link to="/ListNews">Tin tức</Link>
               </li>
-              {user.length !== 0 && (
+              {/* {console.log("đây là tt kh",user)} */}
+              {/* {user.length !== 0 && (
                 <li className="item">
                   <Link to="/Admin">Admin</Link>
                 </li>
-              )}
+              )} */}
+               {/* {user.role === 0 && (
+                <li className="item">
+                  <Link to="/Admin">Admin</Link>
+                </li>
+              )} */}
             </ul>
           </div>
         </div>

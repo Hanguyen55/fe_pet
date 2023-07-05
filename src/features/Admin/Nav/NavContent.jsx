@@ -32,8 +32,9 @@ export default function NavContent() {
   return (
     <div className="NavContent">
       <Switch>
-        <Route exact path={`${path}`} component={Statistical} />
-        <Route exact path={`${path}/CheckPet`} component={CheckPetAdmin} />
+        {/* <Route exact path={`${path}`} component={Statistical} /> */}
+        {/* <Route exact path={`${path}/CheckPet`} component={CheckPetAdmin} /> */}
+        <Route exact path={`${path}`} component={CheckPetAdmin} />
         <Route
           exact
           path={`${path}/CheckPet/PetDetail/:id`}
