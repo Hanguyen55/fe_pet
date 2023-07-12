@@ -8,6 +8,7 @@ import { storage } from "../../../firebase";
 import { messageShowSuccess } from "../../../function";
 import { camera } from "../../Admin/svg/IconSvg";
 import Mutil from "../Multi/Mutil";
+import "../../../sass/Admin/CreatePet.scss";
 
 export default function CreatePet() {
   const [state, setState] = useState({
@@ -83,7 +84,8 @@ export default function CreatePet() {
     });
     petApi.postpet({
       name: data.name,
-      price: data.price,
+      priceStart: data.priceStart,
+      priceEnd: data.priceEnd,
       quantity: data.quantity,
       description: data.description,
       text: text,
@@ -160,18 +162,35 @@ export default function CreatePet() {
               <span className="text-danger">{errors.name.message}</span>
             )}
           </div>
-          <div className="input-admin">
-            <label htmlFor="">Giá</label>
-            <input
-              type="number"
-              {...register("price", {
-                required: "Không được bỏ trống!",
-                maxLength: { value: 255, message: "Vượt quá ký tự cho phép" },
-              })}
-            />
-            {errors.price && (
-              <span className="text-danger">{errors.price.message}</span>
-            )}
+          <label htmlFor="">Giá</label>
+          <div className="input-admin-price">
+            <div className="input-admin">
+                <label htmlFor="">Từ</label>
+                <input
+                type="number"
+                {...register("priceStart", {
+                    required: "Không được bỏ trống!",
+                    maxLength: { value: 255, message: "Vượt quá ký tự cho phép" },
+                })}
+                />
+                {errors.priceStart && (
+                <span className="text-danger">{errors.priceStart.message}</span>
+                )}
+            </div>
+            {/* <p>-</p> */}
+            <div className="input-admin">
+                <label htmlFor="">Đến</label>
+                <input
+                type="number"
+                {...register("priceEnd", {
+                    required: "Không được bỏ trống!",
+                    maxLength: { value: 255, message: "Vượt quá ký tự cho phép" },
+                })}
+                />
+                {errors.priceEnd && (
+                <span className="text-danger">{errors.priceEnd.message}</span>
+                )}
+            </div>
           </div>
           <div className="input-admin">
             <label htmlFor="">Số lượng</label>
@@ -205,7 +224,7 @@ export default function CreatePet() {
           <div className="input-admin">
             <label htmlFor="">Loại thú cưng</label>
             <Select
-              closeMenuOnSelect={false}
+              closeMenuOnSelect={true}
               onChange={onchangeType}
               options={dataType}
             />

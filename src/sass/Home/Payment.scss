@@ -47,3 +47,24 @@
 .popConfirm-dialog {
     z-index: 1309 !important;
 }
+
+.input-radio {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    .input-radio2 {
+        margin: 0px 20px;
+    }
+}
+
+input[type="radio"] {
+    margin-right: 5px;
+}
+
+.img-qr {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    width: 500px;
+    height: 500px;
+}

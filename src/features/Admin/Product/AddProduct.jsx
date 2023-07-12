@@ -409,7 +409,7 @@ export default function AddProduct() {
             <Spinner />
           ) : (
             <Select
-              closeMenuOnSelect={false}
+              closeMenuOnSelect={true}
               placeholder="Chọn các tag liên quan"
               defaultValue={formatDataTag(tagDefault)}
               isMulti
@@ -424,7 +424,7 @@ export default function AddProduct() {
             <Spinner />
           ) : (
             <Select
-              closeMenuOnSelect={false}
+              closeMenuOnSelect={true}
               placeholder="Chọn danh mục sản phẩm"
               defaultValue={formatDataCategory(categoryDefault)}
               onChange={onchangeCategory}

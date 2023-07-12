@@ -49,7 +49,11 @@ export default function AddContact() {
     <div className="CreateAdmin">
       <div className="heading">
         <div className="heading__title">
-          <h3>Thêm liên hệ</h3>
+          {id ? (
+            <h3>Sửa liên hệ</h3>
+          ) : (
+            <h3>Thêm liên hệ</h3>
+          )}
         </div>
         <div className="heading__hr"></div>
       </div>
@@ -77,7 +81,11 @@ export default function AddContact() {
             type="text"
             {...register("phone", {
               required: "Không được bỏ trống!",
-              maxLength: { value: 255, message: "Vượt quá ký tự cho phép!" },
+              maxLength: { value: 11, message: "Vượt quá ký tự cho phép!" },
+              pattern: {
+                value: /(84|0[3|5|7|8|9])+([0-9]{8})\b/g,
+                message: "Không đúng định dạng số điện thoại!",
+              },
             })}
           />
           {errors.phone && (

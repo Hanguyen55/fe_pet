@@ -1,31 +1,30 @@
 import { messageShowErr, messageShowSuccess } from "../function";
 import axiosClient from "./axiosClient";
 
-class BillApi {
+class PriceServicesApi {
   getAll = (params) => {
-    const url = "/bills";
+    const url = "/priceServices";
     return axiosClient.get(url, { params });
   };
   getOne = (params) => {
-    const url = `/bills/${params}`;
+    const url = `/priceServices/${params}`;
     return axiosClient.get(url).then((data) => {
       return data.data;
     });
   };
-  postbill = (params) => {
-    const url = "/bills";
+  postPriceServices = (params) => {
+    const url = "/priceServices";
     return axiosClient
       .post(url, params)
       .then((data) => {
-        console.log("data bill",data);
-        // messageShowSuccess("Thêm mới thành công!");
+        messageShowSuccess("Thêm mới thành công!");
       })
       .catch((err) => {
         messageShowErr("Có lỗi xảy ra!");
       });
   };
-  deletebill = (id) => {
-    const url = `/bills/${id}`;
+  deletePriceServices = (id) => {
+    const url = `/priceServices/${id}`;
     return axiosClient
       .delete(url)
       .then((data) => {
@@ -35,8 +34,8 @@ class BillApi {
         messageShowErr("Có lỗi xảy ra!");
       });
   };
-  editbill = (params) => {
-    const url = `/bills/${params.id}`;
+  editPriceServices = (params) => {
+    const url = `/priceServices/${params.id}`;
     return axiosClient
       .patch(url, params)
       .then((data) => {
@@ -47,5 +46,5 @@ class BillApi {
       });
   };
 }
-const billApi = new BillApi();
-export default billApi;
+const priceServicesApi = new PriceServicesApi();
+export default priceServicesApi;

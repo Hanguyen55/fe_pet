@@ -4,8 +4,11 @@ import { Link, useLocation } from "react-router-dom";
 import petApi from "../../../api/petApi";
 import productApi from "../../../api/productApi";
 import "../../../sass/Shop/Related.scss";
+import Axios from 'axios';
+import avatarError from '../../../images/1227.jpg';
 export default function Related({ id, onLoad, load }) {
   const [data, setData] = useState([]);
+  const [urlAvatar, setUrlAvatar] = useState();
   const { pathname } = useLocation();
 
   const getPathName = () => {
@@ -24,10 +27,18 @@ export default function Related({ id, onLoad, load }) {
     if (getType() === "pet") {
       petApi.getAll({ page: 1 }).then((ok) => {
         setData(cutData(ok.data));
+        Axios.get(ok.data.avatar).then((res) =>{
+            setUrlAvatar(ok.data.avatar)
+          }).catch(function (error) {
+            setUrlAvatar(avatarError)
+            });
       });
     } else {
       productApi.getAll({ page: 1 }).then((ok) => {
         setData(cutData(ok.data));
+        Axios.get(ok.data.avatar).then((res) =>{
+          }).catch(function (error) {
+            });
       });
     }
   }, [load]);
@@ -58,11 +69,19 @@ export default function Related({ id, onLoad, load }) {
         {data?.map((ok, index) => (
           <Grid item lg={3} md={4} sm={6} key={index}>
             <div className="item-pet">
+            <Link
+                  to={`${getPathName()}/${ok.id}`}
+                  onClick={() => {
+                    onLoad();
+                  }}
+                >
               <div className="img">
                 <img src={ok.avatar} alt="" />
-                <div className="add-cart">Thêm vào giỏ</div>
+                {console.log("urlAvatar",urlAvatar)}
+                {/* <div className="add-cart">Thêm vào giỏ</div> */}
                 <div className="blur"></div>
               </div>
+              </Link>
               <div className="name">
                 <Link
                   to={`${getPathName()}/${ok.id}`}
@@ -73,15 +92,30 @@ export default function Related({ id, onLoad, load }) {
                   {ok.name}
                 </Link>
               </div>
+              <Link
+                  to={`${getPathName()}/${ok.id}`}
+                  onClick={() => {
+                    onLoad();
+                  }}
+                >
               <div className="price">
                 {/* <div className="price1">
                   <del>400.000</del>
                 </div> */}
-                <div className="price2">
+                {getType() === "pet"
+                  ? <div className="price2">
+                        {parseInt(ok.priceStart).toLocaleString()} - {parseInt(ok.priceEnd).toLocaleString()}
+                    </div>
+                  : <div className="price2">
+                        {parseInt(ok.price).toLocaleString()}
+                    </div>
+                    }
+                {/* <div className="price2">
                   {parseInt(ok?.price).toLocaleString()}
-                </div>
+                </div> */}
                 <div className="gia">VNĐ</div>
               </div>
+              </Link>
             </div>
           </Grid>
         ))}

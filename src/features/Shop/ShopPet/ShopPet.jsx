@@ -31,6 +31,7 @@ export default function ShopPet() {
   useEffect(() => {
     petApi.getShop({ page, type, category, petOrProduct, name }).then((ok) => {
       setData(ok.data);
+      console.log("type",type);
     });
   }, [page, type, category, petOrProduct, name]);
 
@@ -40,6 +41,7 @@ export default function ShopPet() {
     });
     petApi.countTypePet().then((ok) => {
       setCountPet(ok);
+      console.log("dataaa",ok);
     });
     window.scrollTo(0, 0);
   }, []);
@@ -57,6 +59,7 @@ export default function ShopPet() {
   const onChangeTypePet = (e) => {
     setPetOrProduct("pet");
     setType(e);
+    console.log("type",type);
   };
 
   const onChangeCategory = (e) => {
@@ -142,27 +145,39 @@ export default function ShopPet() {
               {data?.rows?.map((ok, index) => (
                 <Grid item lg={3} md={4} sm={6} key={index}>
                   <div className="item-pet">
+                  <Link to={`${path}/${petOrProduct}/${ok.id}`}>
                     <div className="img">
                       <img src={ok.avatar} alt="" />
-                      <div
+                      {/* <div
                         className="add-cart"
                         onClick={() => handleAddCart(ok)}
                       >
                         Thêm vào giỏ
-                      </div>
+                      </div> */}
                       <div className="blur"></div>
                     </div>
+                    </Link>
                     <div className="name">
                       <Link to={`${path}/${petOrProduct}/${ok.id}`}>
                         {ok.name}
                       </Link>
                     </div>
+                    <Link to={`${path}/${petOrProduct}/${ok.id}`}>
                     <div className="price">
-                      <div className="price2">
+                    {petOrProduct === "pet"
+                  ? <div className="price2">
+                        {parseInt(ok.priceStart).toLocaleString()} - {parseInt(ok.priceEnd).toLocaleString()}
+                    </div>
+                  : <div className="price2">
                         {parseInt(ok.price).toLocaleString()}
-                      </div>
+                    </div>
+                    }
+                      {/* <div className="price2">
+                        {parseInt(ok.price).toLocaleString()}
+                      </div> */}
                       <div className="gia">VNĐ</div>
                     </div>
+                    </Link>
                   </div>
                 </Grid>
               ))}

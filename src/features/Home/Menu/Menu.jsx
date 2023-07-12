@@ -7,6 +7,7 @@ import {
   iconLogout,
   search,
   userHome,
+  bills,
 } from "../../Admin/svg/IconSvg";
 import Cart from "../Cart/Cart";
 
@@ -120,10 +121,10 @@ export default function Menu({ user, setUserMenu }) {
           </div>
         </div>
         <div className="menu-account">
-          <div className="search">
+          {/* <div className="search">
             <input type="text" name="" placeholder="Tìm kiếm" id="" />
             <div className="icon">{search}</div>
-          </div>
+          </div> */}
           <div className="avatar" onClick={ClickAvatar}>
             <img src={user.length === 0 ? avatarDefault : user.avatar} alt="" />
           </div>
@@ -150,7 +151,13 @@ export default function Menu({ user, setUserMenu }) {
                 <li>
                   <Link to={`/InforUser/${user.id}`} onClick={ClickAvatar}>
                     <div className="icon">{userHome}</div>
-                    <div className="text">Thông tin </div>
+                    <div className="text">Thông tin</div>
+                  </Link>
+                </li>
+                <li>
+                  <Link to={`/PurchaseHistory`} onClick={ClickAvatar}>
+                    <div className="icon">{bills}</div>
+                    <div className="text">Lịch sử mua hàng</div>
                   </Link>
                 </li>
                 <li>

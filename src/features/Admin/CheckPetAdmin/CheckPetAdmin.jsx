@@ -9,7 +9,7 @@ import {
   messageShowSuccess,
 } from "../../../function";
 import Spinner from "../Spin/Spinner";
-import { check, notCheck, statusOff, statusOn } from "../svg/IconSvg";
+import { check, notCheck, statusOff, statusOn, add } from "../svg/IconSvg";
 import Table from "../Table/Table";
 export default function CheckPetAdmin() {
   const { url } = useRouteMatch();
@@ -67,7 +67,14 @@ export default function CheckPetAdmin() {
         </div>
         <div className="heading__hr"></div>
       </div>
-
+      <div className="add-admin">
+            <button>
+            <Link to={`${url}/CreatePet`}>
+                <div className="icon">{add}</div>
+                <div className="text">Thêm thú cưng</div>
+            </Link>
+            </button>
+        </div>
       {data !== null ? (
         <div>
           <Table

@@ -62,7 +62,7 @@ export default function EditInformation() {
           .getDownloadURL();
         await userApi
           .edituser({
-            name: data.name,
+            name: data.firstName + " " + data.lastName,
             avatar: anh,
             address: data.address,
             phone: data.phone,
@@ -77,7 +77,7 @@ export default function EditInformation() {
       } else {
         await userApi
           .edituser({
-            name: data.name,
+            name: data.firstName + " " + data.lastName,
             address: data.address,
             phone: data.phone,
             male: setMale(data.male),
@@ -188,9 +188,14 @@ export default function EditInformation() {
           <div className="input-admin">
             <label htmlFor="">Điện thoại</label>
             <input
-              type="number"
+              type="text"
               {...register("phone", {
                 required: "Không được bỏ trống!",
+                maxLength: { value: 11, message: "Vượt quá ký tự cho phép!" },
+                pattern: {
+                    value: /(84|0[3|5|7|8|9])+([0-9]{8})\b/g,
+                    message: "Không đúng định dạng số điện thoại!",
+                  },
               })}
             />
             {errors.phone && (

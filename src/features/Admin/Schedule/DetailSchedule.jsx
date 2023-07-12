@@ -59,6 +59,10 @@ export default function ScheduleDetail() {
                   <div className="text-bold">Thời gian</div>:{" "}
                   {formatDate(schedule.date)}
                 </p>
+                <p>
+                  <div className="text-bold">Tổng tiền</div>:{" "}
+                  {schedule.result} vnđ
+                </p>
               </div>
             </div>
           </div>

@@ -171,7 +171,11 @@ export default function AddNew() {
     <div className="CreateAdmin">
       <div className="heading">
         <div className="heading__title">
-          <h3>Thêm tin tức</h3>
+            {id ? (
+            <h3>Sửa tin tức</h3>
+          ) : (
+            <h3>Thêm tin tức</h3>
+          )}
         </div>
         <div className="heading__hr"></div>
       </div>
@@ -239,7 +243,7 @@ export default function AddNew() {
             <Spinner />
           ) : (
             <Select
-              closeMenuOnSelect={false}
+              closeMenuOnSelect={true}
               defaultValue={formatDataTag(tagDefault)}
               isMulti
               onChange={onchangeTag}

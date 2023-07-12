@@ -122,6 +122,12 @@ export default function NavMenu() {
             </Link>
           </li>
           <li>
+            <Link to={`${path}/PriceService`} id="PriceService">
+              <div className="icon">{service}</div>
+              <div className="text">Giá dịch vụ</div>
+            </Link>
+          </li>
+          <li>
             <Link to={`${path}/Gallery`} id="Gallery">
               <div className="icon">{gallegy}</div>
               <div className="text">Thư viện ảnh</div>

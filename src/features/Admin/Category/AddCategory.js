@@ -88,7 +88,11 @@ export default function AddCategory() {
     <div className="CreateAdmin">
       <div className="heading">
         <div className="heading__title">
-          <h3>Thêm danh mục sản phẩm</h3>
+        {id ? (
+            <h3>Sửa danh mục sản phẩm</h3>
+          ) : (
+            <h3>Thêm danh mục sản phẩm</h3>
+          )}
         </div>
         <div className="heading__hr"></div>
       </div>

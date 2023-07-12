@@ -11,7 +11,7 @@ import renderHTML from "react-render-html";
 export default function Service() {
   const { url } = useRouteMatch();
   const titleTable = [
-    { title: "Tên Service", name: "name" },
+    { title: "Tên dịch vụ", name: "name" },
     { title: "Icon", name: "icon" },
     { title: "Thời gian", name: "time" },
     { title: "action", name: "action" },

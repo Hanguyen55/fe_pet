@@ -43,6 +43,7 @@ export default function DetailPet() {
     if (type === "pet") {
       petApi.getOne(id).then((ok) => {
         setData(ok);
+        console.log("ok",ok);
       });
     } else {
       productApi.getOne(id).then((ok) => {
@@ -108,9 +109,14 @@ export default function DetailPet() {
                 {/* <div className="price1">
                   <del>400.000</del>
                 </div> */}
-                <div className="price2">
-                  {parseInt(data?.price).toLocaleString()}
-                </div>
+                 {type === "pet"
+                  ? <div className="price2">
+                        {parseInt(data?.priceStart).toLocaleString()} - {parseInt(data?.priceEnd).toLocaleString()}
+                    </div>
+                  : <div className="price2">
+                        {parseInt(data?.price).toLocaleString()}
+                    </div>
+                    }
                 <div className="gia">VNĐ</div>
               </div>
               <div className="description">
@@ -123,6 +129,9 @@ export default function DetailPet() {
                   {renderHtml(data ? data.text : "")}
                 </div>
               </div>
+              {type !== "pet"
+                  ?
+                  <>
               <div className="quantity">
                 <div className="title">Số lượng: {data?.quantity}</div>
                 <div className="title">
@@ -141,6 +150,15 @@ export default function DetailPet() {
                 </div>
                 {/* <div className="buy">Mua ngay</div> */}
               </div>
+              </>
+              :
+              <div className="button">
+                <div className="">
+                  <h2>Liên hệ 0981042274 để biết thêm thông tin</h2>
+                </div>
+                {/* <div className="buy">Mua ngay</div> */}
+              </div>
+            }
             </div>
           </Grid>
         </Grid>

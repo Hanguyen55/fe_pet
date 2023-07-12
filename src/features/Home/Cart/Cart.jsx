@@ -31,6 +31,7 @@ export default function Cart() {
 
   const handleCloseDialog = () => {
     setStatusDialog(false);
+    setToggleDrawer(false);
   };
 
   return (
@@ -76,6 +77,14 @@ export default function Cart() {
                   <div className="text">{ok.name}</div>
                 </div>
                 <div className="dg">₫{Number(ok.price).toLocaleString()}</div>
+                {/* <div className="sl">
+                <input
+                    type="number"
+                    classname="input_quantity"
+                    value={ok.quantityCurrent}
+                    onChange={hangdleQuantityNumber}
+                />
+                </div> */}
                 <div className="sl">{ok.quantityCurrent}</div>
                 <div className="st">
                   ₫{Number(ok.priceResult).toLocaleString()}

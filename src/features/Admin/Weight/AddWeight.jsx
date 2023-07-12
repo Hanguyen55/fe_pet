@@ -43,7 +43,11 @@ export default function AddWeight() {
     <div className="CreateAdmin">
       <div className="heading">
         <div className="heading__title">
-          <h3>Thêm cân nặng</h3>
+          {id ? (
+            <h3>Sửa cân nặng</h3>
+          ) : (
+            <h3>Thêm cân nặng</h3>
+          )}
         </div>
         <div className="heading__hr"></div>
       </div>

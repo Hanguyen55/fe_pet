@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import renderHtml from "react-render-html";
 import { Link, useParams } from "react-router-dom";
 import newApi from "../../../api/newApi";
-import img2 from "../../../images/1227.gif";
+import img2 from "../../../images/1227.jpg";
 import img1 from "../../../images/pet4.jpg";
 import "../../../sass/ListNews/New.scss";
 import { facebook, google, twitter } from "../../Admin/svg/IconSvg";
@@ -53,13 +53,13 @@ export default function DetailNew() {
                   </div>
                 ))}
               </div>
-              <div className="new-author">
+              {/* <div className="new-author">
                 <div className="avatar">
                   <img src={data?.avatar} alt="" />
                 </div>
                 <div className="name">Quỳnh chi</div>
                 <div className="time"> lúc 26 Tháng Hai, 2021</div>
-              </div>
+              </div> */}
               <div className="new-content">
                 {renderHtml(data ? data.content : "")}
               </div>

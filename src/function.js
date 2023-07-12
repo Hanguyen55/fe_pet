@@ -1,10 +1,15 @@
 import Toastify from "toastify-js";
 import "toastify-js/src/toastify.css";
+// import dayjs from 'dayjs'
 export const formatDate = (e) => {
-  var year = e.substr(0, 4);
-  var month = e.substr(5, 2);
-  var day = e.substr(8, 2);
-  return day + "/" + month + "/" + year;
+    var date = new Date(e);
+//   var year = e.substr(0, 4);
+  var year = date.getFullYear();
+  var month = (date.getMonth() + 1) < 10 ? '0'+ (date.getMonth() + 1) : (date.getMonth() + 1);
+  var day = date.getDate() < 10 ? '0'+date.getDate() : date.getDate();
+  var hour = date.getHours() < 10 ? '0'+date.getHours() : date.getHours();
+  var minute = date.getMinutes() < 10 ? '0'+date.getMinutes() : date.getMinutes();
+  return hour + ":" + minute + " " + day + "/" + month + "/" + year;
 };
 export const checkArrayEquar = (a, b) => {
   if (a.length !== b.length) {
@@ -18,6 +23,14 @@ export const checkArrayEquar = (a, b) => {
     return true;
   }
 };
+export const getValue = (data,value) => {
+    var datavalue;
+    data.forEach((el) => {
+        if(el.id === value)
+        datavalue = el;
+    });
+      return datavalue;
+  };
 export const countPagination = (e, i) => {
   if (i) {
     return Math.ceil(e / 8);

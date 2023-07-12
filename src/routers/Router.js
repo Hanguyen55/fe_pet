@@ -12,8 +12,11 @@ import ListNews from "../features/ListNews/ListNews";
 import Login from "../features/Login/Login";
 import Register from "../features/Register/Register";
 import RegisterService from "../features/RegisterService/RegisterService";
+import PurchaseHistory from "../features/PurchaseHistory/PurchaseHistory";
 import DetailPet from "../features/Shop/DetailPet/DetailPet";
 import ShopPet from "../features/Shop/ShopPet/ShopPet";
+import BillDetail from "../features/Admin/bill/billDetail";
+import Spin from "../features/Spin/Spinner.jsx";
 
 const Routers = (props) => {
   const { location } = props;
@@ -61,12 +64,20 @@ const Routers = (props) => {
         <Route path="/Login" component={Login} />
         <Route path="/Register" component={Register} />
         <Route path="/RegisterService/:id" component={RegisterService} />
+        <Route exact path="/PurchaseHistory" component={PurchaseHistory} />
+        <Route path="/PurchaseHistory/:id" component={BillDetail} />
         <Route
           path="/InforUser/:id"
           render={() => {
             return user.length === 0 ? <Login /> : <InforUser />;
           }}
         />
+        {/* <Route
+          path="/PurchaseHistory/DetailBill/:id"
+          render={() => {
+            return <BillDetail />;
+          }}
+        /> */}
         <Route
           path="/Admin"
           render={() => {

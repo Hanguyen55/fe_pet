@@ -46,6 +46,7 @@
       }
       .price2 {
         color: $colorOrange;
+        font-size: 1.5rem;
       }
       .gia {
         margin-left: 0.5rem;
@@ -87,17 +88,17 @@
         border-radius: 5px;
         border: 1px solid;
         padding: 0.5rem 1rem;
-        font-weight: 500;
+        font-weight: 700;
         cursor: pointer;
       }
       .add-cart {
-        background-color: black;
-        color: $colorOrange;
-        border-color: black;
+        background-color: #ef6615;
+        color: black;
+        border-color: #ef6615;
         transition: 0.5s;
         &:hover {
-          color: white;
-          background-color: $colorOrange;
+          color: $colorOrange;
+          background-color: white;
           border-color: $colorOrange;
         }
       }

@@ -18,7 +18,9 @@ import Product from "../Product/Product";
 import ScheduleDetail from "../Schedule/DetailSchedule";
 import Schedule from "../Schedule/Schedule";
 import AddService from "../Service/AddService";
+import AddPriceService from "../Service/AddPriceService";
 import Service from "../Service/Service";
+import PriceService from "../Service/PriceService";
 import AddSocialNetwork from "../SocialNetwork/AddSocialNetwork";
 import SocialNetwork from "../SocialNetwork/SocialNetwork";
 import Statistical from "../Statistical/Statistical";
@@ -26,6 +28,10 @@ import AddTag from "../Tag/AddTag";
 import Tag from "../Tag/Tag";
 import AddWeight from "../Weight/AddWeight";
 import Weight from "../Weight/Weight";
+// import RegisterService from "../features/RegisterService/RegisterService";
+import RegisterService from "../../RegisterService/RegisterService";
+// import CreatePet from "./Panes/CreatePet";
+import CreatePet from "../../InforUser/Panes/CreatePet";
 
 export default function NavContent() {
   const { path } = useRouteMatch();
@@ -69,6 +75,11 @@ export default function NavContent() {
           path={`${path}/Category/AddCategory/:id`}
           component={AddCategory}
         />
+        <Route
+          exact
+          path={`${path}/CreatePet`}
+          component={CreatePet}
+        />
         <Route exact path={`${path}/Product`} component={Product} />
         <Route
           exact
@@ -80,13 +91,27 @@ export default function NavContent() {
           path={`${path}/Product/AddProduct/:id`}
           component={AddProduct}
         />
-
+        <Route exact path={`${path}/PriceService`} component={PriceService} />
+        <Route
+          exact
+          path={`${path}/PriceService/AddPriceService`}
+          component={AddPriceService}
+        />
+        <Route
+          exact
+          path={`${path}/PriceService/AddPriceService/:id`}
+          component={AddPriceService}
+        />
         <Route exact path={`${path}/Service`} component={Service} />
         <Route
           exact
           path={`${path}/Service/AddService`}
           component={AddService}
         />
+        <Route
+            exact
+            path={`${path}/Schedule/RegisterService/:id`}
+            component={RegisterService} />
         <Route
           exact
           path={`${path}/Service/AddService/:id`}

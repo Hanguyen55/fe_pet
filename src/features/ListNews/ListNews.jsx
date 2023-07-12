@@ -33,17 +33,19 @@ export default function ListNews() {
         <Grid container spacing={2} className="content-item">
           {data?.rows?.map((ok, index) => (
             <Grid item lg={3} md={3} sm={6} key={index}>
+                <Link to={`${path}/${ok.id}`}>
               <div className="item-new">
                 <div className="img">
                   <img src={ok.avatar} alt="" />
                 </div>
                 <div className="text">
                   <div className="text-title">
-                    <Link to={`${path}/${ok.id}`}>{ok.name}</Link>
+                    {ok.name}
                   </div>
                   <div className="text-content">{ok.samary}</div>
                 </div>
               </div>
+              </Link>
             </Grid>
           ))}
         </Grid>
