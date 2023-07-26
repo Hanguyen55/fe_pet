@@ -21,34 +21,17 @@ export default function PriceService() {
         // { title: "action", name: "action" },
       ];
   
-    const [data, setdata] = useState(null);
-    const [dataWeight, setDataWeight] = useState([]);
-    const [dataService, setDataService] = useState([]);
+    const [data, setData] = useState(null);
     const [page, setPage] = useState(1);
     const [load, setLoad] = useState(false);
     useEffect(() => {
-        weightApi.getAll().then((ok) => {
-            let dataWeight = [];
-            ok.data.rows.forEach((el) => {
-                dataWeight.push(el)
-            });
-            setDataWeight(dataWeight);
-        });
-        ServiceApi.getAll().then((ok) => {
-            let dataService = [];
-            ok.data.rows.forEach((el) => {
-                dataService.push(el);
-            });
-            setDataService(dataService);
-        });
-        priceServicesApi.getAll({ page: page })
-        .then((ok) => {
-          setdata(ok.data);
+        priceServicesApi.getAllPrice().then((ok) => {
+            setData(ok.data);
         })
         .catch((err) => {
           console.log(err);
         });
-    }, [load, page]);
+    }, [load,page]);
     const history = useHistory();
     const onchangeEdit = (e) => {
       history.push(`${url}/AddPriceService/${e}`);
@@ -79,10 +62,10 @@ export default function PriceService() {
               titleTable={titleTable}
               onchangeDelete={onchangeDelete}
               onchangeEdit={onchangeEdit}
-              dataSource={data.rows.map((ok, index) => ({
+              dataSource={data.map((ok, index) => ({
                 key: ok.id,
-              services: ok.id,
-              weights: ok.id,
+              services: ok.service,
+              weights: ok.weight,
               price: ok.price,
               time: formatDate(ok.createdAt),
               }))}
@@ -91,7 +74,7 @@ export default function PriceService() {
               onChange={(e, i) => {
                 setPage(i);
               }}
-              count={countPagination(data.count)}
+              count={countPagination(data.length)}
               color="secondary"
               variant="outlined"
               shape="rounded"

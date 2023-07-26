@@ -1,6 +1,6 @@
 import { Container, TextField } from "@material-ui/core";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
-// import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
+import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
 import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
 // import DateFnsUtils from "@date-io/date-fns";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
@@ -11,6 +11,7 @@ import Select from "react-select";
 import scheduleApi from "../../api/ScheduleApi";
 import serviceApi from "../../api/ServiceApi";
 import weightApi from "../../api/weightApi";
+import categoryPetApi from "../../api/CategoryPetApi";
 import priceServicesApi from "../../api/priceServicesApi";
 import "../../sass/RegisterService/RegisterService.scss";
 import Banner from "../Banner/Banner";
@@ -35,22 +36,22 @@ export default function RegisterService() {
   const { id } = useParams();
   const [data, setData] = useState(null);
   const [weight, setWeight] = useState(null);
+  const [categoryPet, setCategoryPet] = useState(null);
   const [priceservice, setPriceservice] = useState(null);
   const [priceserviceWeight, setPriceserviceWeight] = useState(null);
-  const [typePet, setTypePet] = useState("chó");
-  const [serviceDefault, setServiceDefault] = useState(null);
-  const [typeService, setTypeService] = useState();
-  const [typeWeight, setTypeWeight] = useState();
-  const [date, setDate] = useState(new Date());
+  const [petId, setTypePet] = useState('');
+  const [serviceId, setTypeService] = useState('');
+  const [weightId, setTypeWeight] = useState('');
+  const [date, setDate] = useState(new Date(new Date().setDate(new Date().getDate() + 1)).toISOString().slice(0, -8));
   const [result, setResult] = useState(0);
   const [dataTille, setDataTille] = useState(null);
   const [load, setLoad] = useState(false);
-  const [inforUser, setInforUser] = useState({
-    name: '',
-    email: '',
-    address: '',
-    phone: '',
-  });
+  const [name, setName] = useState('');
+  const [userId, setUserId] = useState('');
+  const [phone, setPhone] = useState('');
+  const [email, setEmail] = useState('');
+  const [address, setAddress] = useState('');
+  const [note, setNote] = useState();
   const [error, setError] = useState({
     name: {
         status: false,
@@ -72,15 +73,15 @@ export default function RegisterService() {
         status: false,
         message: "",
     },
-      typePet: {
+      petId: {
         status: false,
         message: "",
     },
-      typeService: {
+      serviceId: {
         status: false,
         message: "",
     },
-      typeWeight: {
+      weightId: {
         status: false,
         message: "",
     },
@@ -90,49 +91,28 @@ export default function RegisterService() {
     },
   });
   useEffect(() => {
-    if (id) {
-        userApi.getOne(id).then((ok) => {
-        reset(ok);
-      });
-    }
-  }, []);
-  useEffect(() => {
     window.scrollTo(0, 0);
-    userApi.checkUser().then((okC) => {
-    userApi.getOne(okC.id).then((ok) => {
-        setInforUser({
-            name: ok.name,
-            email: ok.email,
-            address: ok.address,
-            phone: ok.phone,
-        })
-        if(adminOrUser !== "Admin") {
-            reset(ok);
-          }
-      });
-    });
     serviceApi.getAll().then((ok) => {
       let dataOptionService = [];
       ok.data.rows.forEach((el) => {
         dataOptionService.push({ value: el.id, label: el.name });
-        // dataOptionService.push(el);
         if (el.id == id) {
-          setServiceDefault([{ value: parseInt(id), label: el.name }]);
-          if(adminOrUser !== "Admin") {
-            setTypeService([{ value: el.id, label: el.name }]);
-          }
+            setTypeService({ value: el.id, label: el.name });
+        //   if(adminOrUser !== "Admin") {
+        //     setTypeService([{ value: el.id, label: el.name }]);
+        //   }
           setDataTille([el])
         }
       });
       setData(dataOptionService);
     });
-    // weightApi.getAll().then((ok) => {
-    //   let dataWeight = [];
-    //   ok.data.rows.forEach((el) => {
-    //     dataWeight.push({ value: el.id, label: el.weight });
-    //   });
-    //   setWeight(dataWeight);
-    // });
+    categoryPetApi.getAll({ status: 1 }).then((ok) => {
+      let dataCategoryPet = [];
+      ok.data.rows.forEach((el) => {
+        dataCategoryPet.push({ value: el.id, label: el.name });
+      });
+      setCategoryPet(dataCategoryPet);
+    });
     priceServicesApi.getAll().then((ok) => {
         let dataPriceservice = [];
         let dataPriceserviceWeight = [];
@@ -153,50 +133,108 @@ export default function RegisterService() {
         });
         setPriceservice(dataPriceservice);
         setPriceserviceWeight(dataPriceserviceWeight);
-        setLoad(!load);
       });
       var urlSplit = url.split("/")
       setAdminOrUser(urlSplit[1])
+      setLoad(!load);
   }, [id]);
   useEffect(() => {
+    userApi.checkUser().then((okC) => {
+        userApi.getOne(okC.id).then((ok) => {
+            if(adminOrUser !== "Admin") {
+                setName(ok.name);
+                setPhone(ok.phone);
+                setEmail(ok.email);
+                setAddress(ok.address);
+              }
+              setUserId(ok.id);
+          });
+        });
     if(adminOrUser !== "Admin") {
         priceserviceWeight?.forEach((el) => {
-            if ( el?.weightId === typeWeight?.value) {
-                setResult(el.price)
+            if ( el?.weightId === weightId?.value) {
+                setResult(el?.price)
             }
         });
     }
     else {
         priceservice?.forEach((el) => {
-            if ( typeWeight?.value == el?.weightId && typeService?.value == el?.serviceId) {
-                setResult(Number(el?.price).toLocaleString())
-                console.log("result",result);
+            if ( weightId?.value == el?.weightId && serviceId?.value == el?.serviceId) {
+                setResult(el?.price)
             }
-            else if (typeWeight?.value != el?.weightId && typeService?.value != el?.serviceId) {
+            else if (weightId?.value != el?.weightId && serviceId?.value != el?.serviceId) {
                 setResult(0)
             }
         });
     }
   }, [load]);
-  const dataType = [
-    { value: "chó", label: "chó" },
-    { value: "mèo", label: "mèo" },
-    { value: "khác", label: "khác" },
-  ];
 
   const onchangeTypePet = (e) => {
-    setTypePet(e.label);
+    if(e === undefined || Object.keys(e).length === 0){
+        setError((prevState) => ({
+            ...prevState,
+            petId: {
+                message: "Không được bỏ trống!",
+                status: true,
+            }
+          }));
+    } else {
+        setError((prevState) => ({
+            ...prevState,
+            petId: {
+                message: "",
+                status: false,
+            }
+          }));
+    }
+    setTypePet(e);
   };
   const onchangeTypeService = (e) => {
-    setTypeService({ value: e.value, label: e.label });
+    if(adminOrUser === "Admin") {
+    if(e === undefined || Object.keys(e).length === 0){
+        setError((prevState) => ({
+            ...prevState,
+            serviceId: {
+                message: "Không được bỏ trống!",
+                status: true,
+            }
+          }));
+    } else {
+        setError((prevState) => ({
+            ...prevState,
+            serviceId: {
+                message: "",
+                status: false,
+            }
+          }));
+    }
+    setTypeService(e);
+}
     setLoad(!load);
   };
   const onchangeWeight = (e) => {
-    setTypeWeight({ value: e.value, label: e.label });
+    if(e === undefined || Object.keys(e).length === 0){
+        setError((prevState) => ({
+            ...prevState,
+            weightId: {
+                message: "Không được bỏ trống!",
+                status: true,
+            }
+          }));
+    } else {
+        setError((prevState) => ({
+            ...prevState,
+            weightId: {
+                message: "",
+                status: false,
+            }
+          }));
+    }
+    setTypeWeight(e);
     setLoad(!load);
   };
-  const onSubmit = (data) => {
-    if(typeof data.name === 'string' && data.name.length === 0){
+  const handleCheckName = (e) => {
+    if(typeof e === 'string' && e.length === 0){
         setError((prevState) => ({
             ...prevState,
             name: {
@@ -204,7 +242,7 @@ export default function RegisterService() {
                 status: true,
             }
           }));
-    } else if(data.name.length === 255) {
+    } else if(e.length === 255) {
         setError((prevState) => ({
             ...prevState,
             name: {
@@ -221,68 +259,10 @@ export default function RegisterService() {
             }
           }));
     }
-
-    if(typeof data.email === 'string' && data.email.length === 0){
-        setError((prevState) => ({
-            ...prevState,
-            email: {
-                message: "Không được bỏ trống!",
-                status: true,
-            }
-          }));
-    } else if(data.email.length === 255) {
-        setError((prevState) => ({
-            ...prevState,
-            email: {
-                message: "Vượt quá ký tự cho phép",
-                status: true,
-            }
-          }));
-    } else if(!data.email.match(/^[^@ ]+@[^@ ]+\.[^@ .]{2,}$/)) {
-        setError((prevState) => ({
-            ...prevState,
-            email: {
-                message: "Email không hợp lệ",
-                status: true,
-            }
-        }));
-    } else {
-        setError((prevState) => ({
-            ...prevState,
-            email: {
-                message: "",
-                status: false,
-            }
-          }));
-    }
-
-    if(typeof data.address === 'string' && data.address.length === 0){
-        setError((prevState) => ({
-            ...prevState,
-            address: {
-                message: "Không được bỏ trống!",
-                status: true,
-            }
-          }));
-    } else if(data.address.length === 255) {
-        setError((prevState) => ({
-            ...prevState,
-            address: {
-                message: "Vượt quá ký tự cho phép",
-                status: true,
-            }
-          }));
-    } else {
-        setError((prevState) => ({
-            ...prevState,
-            address: {
-                message: "",
-                status: false,
-            }
-          }));
-    }
-
-    if(typeof data.phone === 'string' && data.phone.length === 0){
+    setName(e)
+  };
+  const handleCheckPhone = (e) => {
+    if(typeof e === 'string' && e.length === 0){
         setError((prevState) => ({
             ...prevState,
             phone: {
@@ -290,7 +270,7 @@ export default function RegisterService() {
                 status: true,
             }
           }));
-    } else if(data.phone.length === 11) {
+    } else if(e.length === 11) {
         setError((prevState) => ({
             ...prevState,
             phone: {
@@ -298,7 +278,7 @@ export default function RegisterService() {
                 status: true,
             }
           }));
-    } else if(!data.phone.match(/(84|0[3|5|7|8|9])+([0-9]{8})\b/g)) {
+    } else if(!e.match(/(84|0[3|5|7|8|9])+([0-9]{8})\b/g)) {
         setError((prevState) => ({
             ...prevState,
             phone: {
@@ -315,19 +295,57 @@ export default function RegisterService() {
             }
           }));
     }
-
-    if(typeof data.note === 'string' && data.note.length === 0){
+    setPhone(e)
+  };
+  const handleCheckEmail = (e) => {
+    if(typeof e === 'string' && e.length === 0){
         setError((prevState) => ({
             ...prevState,
-            note: {
+            email: {
                 message: "Không được bỏ trống!",
                 status: true,
             }
           }));
-    } else if(data.note.length === 500) {
+    } else if(e.length === 255) {
         setError((prevState) => ({
             ...prevState,
-            note: {
+            email: {
+                message: "Vượt quá ký tự cho phép",
+                status: true,
+            }
+          }));
+    } else if(!e.match(/^[^@ ]+@[^@ ]+\.[^@ .]{2,}$/)) {
+        setError((prevState) => ({
+            ...prevState,
+            email: {
+                message: "Email không hợp lệ",
+                status: true,
+            }
+        }));
+    } else {
+        setError((prevState) => ({
+            ...prevState,
+            email: {
+                message: "",
+                status: false,
+            }
+          }));
+    }
+    setEmail(e)
+  };
+  const handleCheckAddress = (e) => {
+    if(typeof e === 'string' && e.length === 0){
+        setError((prevState) => ({
+            ...prevState,
+            address: {
+                message: "Không được bỏ trống!",
+                status: true,
+            }
+          }));
+    } else if(e.length === 255) {
+        setError((prevState) => ({
+            ...prevState,
+            address: {
                 message: "Vượt quá ký tự cho phép",
                 status: true,
             }
@@ -335,17 +353,19 @@ export default function RegisterService() {
     } else {
         setError((prevState) => ({
             ...prevState,
-            note: {
+            address: {
                 message: "",
                 status: false,
             }
           }));
     }
-
-    if(typeof typePet === 'string' && typePet.length === 0){
+    setAddress(e)
+  }
+  const handleCheckDate = (e) => {
+    if(typeof e === 'string' && e.length === 0){
         setError((prevState) => ({
             ...prevState,
-            typePet: {
+            date: {
                 message: "Không được bỏ trống!",
                 status: true,
             }
@@ -353,94 +373,106 @@ export default function RegisterService() {
     } else {
         setError((prevState) => ({
             ...prevState,
-            typePet: {
+            date: {
                 message: "",
                 status: false,
             }
           }));
     }
-
-    // if(typeWeight === undefined || Object.keys(date).length === 0){
-    //     setError((prevState) => ({
-    //         ...prevState,
-    //         date: {
-    //             message: "Không được bỏ trống!",
-    //             status: true,
-    //         }
-    //       }));
-    // } else {
-    //     setError((prevState) => ({
-    //         ...prevState,
-    //         date: {
-    //             message: "",
-    //             status: false,
-    //         }
-    //       }));
-    // }
-
-    if(typeWeight === undefined || Object.keys(typeWeight).length === 0){
-        setError((prevState) => ({
-            ...prevState,
-            typeWeight: {
-                message: "Không được bỏ trống!",
-                status: true,
-            }
-          }));
-    } else {
-        setError((prevState) => ({
-            ...prevState,
-            typeWeight: {
-                message: "",
-                status: false,
-            }
-          }));
-    }
-
-    if(typeService === undefined || Object.keys(typeService).length === 0){
-        setError((prevState) => ({
-            ...prevState,
-            typeService: {
-                message: "Không được bỏ trống!",
-                status: true,
-            }
-          }));
-    } else {
-        setError((prevState) => ({
-            ...prevState,
-            typeService: {
-                message: "",
-                status: false,
-            }
-          }));
-    }
-
-    if(!error.name.status
-        && !error.email.status
-        && !error.address.status
-        && !error.note.status
-        && !error.phone.status
-        // && !error.date.status
-        && !error.typePet.status
-        && !error.typeService.status
-        && !error.typeWeight.status ) {
+    setDate(e)
+  }
+  const onSubmit = (data) => {
+    if(name !==''
+        && email !==''
+        && address !==''
+        && phone !==''
+        && petId !==''
+        && serviceId !==''
+        && weightId !==''
+        ) {
         scheduleApi.postschedule({
-        name: data.name,
-        email: data.email,
-        address: data.address,
+        name,
+        email,
+        address,
         note: data.note,
-        phone: data.phone,
+        phone,
+        useId: userId,
         status: 0,
-        typePet,
-        typeService: typeService.label,
-        typeWeight: typeWeight.label,
+        petId: petId?.value,
+        serviceId: serviceId?.value,
+        weightId: weightId?.value,
         date,
         result,
         });
-        {adminOrUser !== "Admin"?
-        history.push("/")
-        : history.push("/Admin/Schedule");
-        }
+        // {adminOrUser !== "Admin"?
+        // history.push("/")
+        // : history.push("/Admin/Schedule");
+        // }
         // history.push("/");
+        }  else {
+            if(typeof name === 'string' && name.length === 0){
+                setError((prevState) => ({
+                    ...prevState,
+                    name: {
+                        status: true,
+                        message: "Không được bỏ trống!",
+                    },
+                  }));
+            }
+            if(typeof email === 'string' && email.length === 0){
+                setError((prevState) => ({
+                    ...prevState,
+                    email: {
+                        status: true,
+                        message: "Không được bỏ trống!",
+                    },
+                  }));
+            }
+            if(typeof address === 'string' && address.length === 0){
+                setError((prevState) => ({
+                    ...prevState,
+                    address: {
+                        status: true,
+                        message: "Không được bỏ trống!",
+                    },
+                  }));
+            }
+            if(typeof phone === 'string' && phone.length === 0){
+                setError((prevState) => ({
+                    ...prevState,
+                    phone: {
+                        status: true,
+                        message: "Không được bỏ trống!",
+                    },
+                  }));
+            }
+            if(typeof petId === 'string' && petId.length === 0){
+                setError((prevState) => ({
+                    ...prevState,
+                    petId: {
+                        status: true,
+                        message: "Không được bỏ trống!",
+                    },
+                  }));
+            }
+            if(typeof serviceId === 'string' && serviceId.length === 0){
+                setError((prevState) => ({
+                    ...prevState,
+                    serviceId: {
+                        status: true,
+                        message: "Không được bỏ trống!",
+                    },
+                  }));
+            }
+            if(typeof weightId === 'string' && weightId.length === 0){
+                setError((prevState) => ({
+                    ...prevState,
+                    weightId: {
+                        status: true,
+                        message: "Không được bỏ trống!",
+                    },
+                  }));
+            }
         }
   };
 
@@ -478,21 +510,28 @@ export default function RegisterService() {
             <form onSubmit={handleSubmit(onSubmit)}>
               <div className="input-admin">
                 <label htmlFor="">Họ và tên</label>
-                <input
-                  type="text"
-                //   value={inforUser.name}
-                  {...register("name", {})}
-                />
+                <TextField
+                label=" "
+                id="outlined-basic"
+                variant="outlined"
+                InputLabelProps={{shrink: false}}
+                value={name}
+                onChange={(e) => handleCheckName(e.target.value)}
+            />
                 {error.name.status && (
                   <span className="text-danger">{error.name.message}</span>
                 )}
               </div>
               <div className="input-admin">
                 <label htmlFor="">Số điện thoại</label>
-                <input
-                  type="text"
-                  {...register("phone", {})}
-                />
+                <TextField
+                label=" "
+                id="outlined-basic"
+                variant="outlined"
+                InputLabelProps={{shrink: false}}
+                value={phone}
+                onChange={(e) => handleCheckPhone(e.target.value)}
+            />
                 {/* {errors.phone && (
                   <span className="text-danger">{errors.phone.message}</span>
                 )} */}
@@ -502,10 +541,14 @@ export default function RegisterService() {
               </div>
               <div className="input-admin">
                 <label htmlFor="">Email liên hệ</label>
-                <input
-                  type="email"
-                  {...register("email", {})}
-                />
+                <TextField
+                label=" "
+                id="outlined-basic"
+                variant="outlined"
+                InputLabelProps={{shrink: false}}
+                value={email}
+                onChange={(e) => handleCheckEmail(e.target.value)}
+            />
                 {/* {errors.email && (
                   <span className="text-danger">{errors.email.message}</span>
                 )} */}
@@ -515,10 +558,14 @@ export default function RegisterService() {
               </div>
               <div className="input-admin">
                 <label htmlFor="">Địa chỉ</label>
-                <input
-                  type="text"
-                  {...register("address", {})}
-                />
+                <TextField
+                label=" "
+                id="outlined-basic"
+                variant="outlined"
+                InputLabelProps={{shrink: false}}
+                value={address}
+                onChange={(e) => handleCheckAddress(e.target.value)}
+            />
                 {error.address.status && (
                   <span className="text-danger">{error.address.message}</span>
                 )}
@@ -527,20 +574,13 @@ export default function RegisterService() {
                 {adminOrUser == "Admin" ?
                     <>
                     <label htmlFor="">Loại dịch vụ</label>
-                    {serviceDefault != null ? (
-                        <>
                     <Select
                         closeMenuOnSelect={true}
-                        // defaultValue={serviceDefault}
                         onChange={onchangeTypeService}
                         options={data}
                     />
-                    {error.typeService.status && (
-                        <span className="text-danger">{error.typeService.message}</span>
-                    )}
-                      </>
-                    ) : (
-                    ""
+                    {error.serviceId.status && (
+                        <span className="text-danger">{error.serviceId.message}</span>
                     )}
                     </>
                     :
@@ -552,11 +592,11 @@ export default function RegisterService() {
                 <Select
                   closeMenuOnSelect={true}
                   onChange={onchangeTypePet}
-                  defaultValue={[{ value: "chó", label: "chó" }]}
-                  options={dataType}
+                //   defaultValue={[{ value: 1, label: "chó" }]}
+                  options={categoryPet}
                 />
-                {error.typePet.status && (
-                    <span className="text-danger">{error.typePet.message}</span>
+                {error.petId.status && (
+                    <span className="text-danger">{error.petId.message}</span>
                 )}
               </div>
               <div className="input-admin">
@@ -567,28 +607,38 @@ export default function RegisterService() {
                 //   defaultValue={[{ value: 1, label: "15kg - 20kg" }]}
                   options={weight}
                 />
-                {error.typeWeight.status && (
-                  <span className="text-danger">{error.typeWeight.message}</span>
+                {error.weightId.status && (
+                  <span className="text-danger">{error.weightId.message}</span>
                 )}
               </div>
-              <LocalizationProvider dateAdapter={AdapterDateFns}>
+              {/* <LocalizationProvider dateAdapter={AdapterDateFns}> */}
                 {/* <TimePicker
                     label="Controlled picker"
                     // value={value}
                     // onChange={(newValue) => setValue(newValue)}
                     /> */}
-                <DateTimePicker
-                  label="Ngày đặt lịch"
-                  inputFormat="HH:mm dd/MM/yyyy"
+                    <div className="input-admin">
+                <label htmlFor="">Ngày đặt lịch</label>
+                {/* <DateTimePicker
+                  label=""
+                //   inputFormat="HH:mm dd/MM/yyyy"
+                type="time"
                   minDate={new Date().setDate(new Date().getDate() + 1)}
                   value={date}
                   onChange={(e) => setDate(e)}
+                  views={['year', 'day', 'hours', 'minutes', 'seconds']}
                   renderInput={(params) => <TextField {...params} />}
-                />
-                {/* {error.date.status && (
+                /> */}
+                <input
+                type="datetime-local"
+                value={date}
+                onChange={(e) => handleCheckDate(e.target.value)}
+                min={new Date(new Date().setDate(new Date().getDate() + 1)).toISOString().slice(0, -8)} />
+                {error.date.status && (
                     <span style={{ color: "#f75a3f" }}>{error.date.message}</span>
-                )} */}
-              </LocalizationProvider>
+                )}
+                </div>
+              {/* </LocalizationProvider> */}
               <div className="input-admin">
                 <label htmlFor="">Ghi chú</label>
                 <textarea
@@ -599,6 +649,16 @@ export default function RegisterService() {
                   placeholder="Nhập một vài mô tả về tình trạng sức khoẻ của các bé để các chuyên viên của chúng tôi có thể hỗ trợ bạn tốt nhất..."
                   {...register("note", {})}
                 ></textarea>
+                {/* <TextField
+                // id="outlined-basic"
+                    label=""
+                    id="outlined-textarea-basic"
+                variant="outlined"
+                    multiline
+                    rows={4}
+                    // InputLabelProps={{shrink: false}}
+                    placeholder="Nhập một vài mô tả về tình trạng sức khoẻ của các bé để các chuyên viên của chúng tôi có thể hỗ trợ bạn tốt nhất..."
+                    /> */}
                 {error.note.status && (
                   <span className="text-danger">{error.note.message}</span>
                 )}

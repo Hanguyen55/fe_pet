@@ -49,11 +49,7 @@ export default function AddContact() {
     <div className="CreateAdmin">
       <div className="heading">
         <div className="heading__title">
-          {id ? (
-            <h3>Sửa liên hệ</h3>
-          ) : (
-            <h3>Thêm liên hệ</h3>
-          )}
+        <h3>{!id ? "Thêm liên hệ" : "Sửa liên hệ"}</h3>
         </div>
         <div className="heading__hr"></div>
       </div>

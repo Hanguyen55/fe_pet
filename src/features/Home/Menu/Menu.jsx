@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import "../../../sass/Home/Menu.scss";
+import { useSelector } from "react-redux";
 import {
   bar,
   iconLogin,
@@ -10,10 +11,13 @@ import {
   bills,
 } from "../../Admin/svg/IconSvg";
 import Cart from "../Cart/Cart";
+import userApi from "../../../api/userApi";
 
 export default function Menu({ user, setUserMenu }) {
   const [openSelect, setOpenSelect] = useState("hident");
   const [initSelect, setinitSelect] = useState("none");
+  const [data, setData] = useState("none");
+  const userInfor = useSelector((state) => state.user.userInfor);
   // const [load, setLoad] = useState(true);
   const MenuEl = useRef(null);
   const MenuHidentEl = useRef(null);
@@ -27,6 +31,9 @@ export default function Menu({ user, setUserMenu }) {
   const selectEL = useRef(null);
 
   useEffect(() => {
+        // userApi.getOne(user.id).then((ok) => {
+        //     setData(ok)
+        //   });
     // menuJs(MenuEl.current, MenuHidentEl.current, MenuBarEl.current);
     let menuHide = MenuHidentEl.current;
     let menuBar = MenuBarEl.current;
@@ -106,7 +113,6 @@ export default function Menu({ user, setUserMenu }) {
               <li className="item">
                 <Link to="/ListNews">Tin tức</Link>
               </li>
-              {/* {console.log("đây là tt kh",user)} */}
               {/* {user.length !== 0 && (
                 <li className="item">
                   <Link to="/Admin">Admin</Link>
@@ -126,7 +132,8 @@ export default function Menu({ user, setUserMenu }) {
             <div className="icon">{search}</div>
           </div> */}
           <div className="avatar" onClick={ClickAvatar}>
-            <img src={user.length === 0 ? avatarDefault : user.avatar} alt="" />
+            <img src={user.length === 0 ? avatarDefault : userInfor.avatar} alt="" />
+            {/* <img src={user.avatar} alt="" /> */}
           </div>
           <Cart />
           {openSelect === "" && (

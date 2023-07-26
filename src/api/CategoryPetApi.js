@@ -1,23 +1,23 @@
 import { messageShowErr, messageShowSuccess } from "../function";
 import axiosClient from "./axiosClient";
 
-class ScheduleApi {
+class CategoryPetApi {
   getAll = (params) => {
-    const url = "/schedules";
-    return axiosClient.get(url, { params });
-  };
-  getRevenueService = (params) => {
-    const url = "/schedules/revenueService";
+    const url = "/categorysPet";
     return axiosClient.get(url, { params });
   };
   getOne = (params) => {
-    const url = `/schedules/${params}`;
+    const url = `/categorysPet/${params}`;
     return axiosClient.get(url).then((data) => {
       return data.data;
     });
   };
-  postschedule = (params) => {
-    const url = "/schedules";
+  countTypePet = (params) => {
+    const url = "/categorysPet/all";
+    return axiosClient.get(url, { params });
+  };
+  postcategory = (params) => {
+    const url = "/categorysPet";
     return axiosClient
       .post(url, params)
       .then((data) => {
@@ -27,8 +27,8 @@ class ScheduleApi {
         messageShowErr("Có lỗi xảy ra!");
       });
   };
-  deleteschedule = (id) => {
-    const url = `/schedules/${id}`;
+  deletecategory = (id) => {
+    const url = `/categorysPet/${id}`;
     return axiosClient
       .delete(url)
       .then((data) => {
@@ -38,8 +38,8 @@ class ScheduleApi {
         messageShowErr("Có lỗi xảy ra!");
       });
   };
-  editschedule = (params) => {
-    const url = `/schedules/${params.id}`;
+  editcategory = (params) => {
+    const url = `/categorysPet/${params.id}`;
     return axiosClient
       .patch(url, params)
       .then((data) => {
@@ -50,5 +50,5 @@ class ScheduleApi {
       });
   };
 }
-const scheduleApi = new ScheduleApi();
-export default scheduleApi;
+const categoryPetApi = new CategoryPetApi();
+export default categoryPetApi;

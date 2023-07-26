@@ -49,8 +49,7 @@ export default function Login() {
             actionResult();
           }, 300);
           userApi.checkUser().then((ok) => {
-            console.log("đây là data đăng nhập",ok);
-            if(ok.role !== 0) {
+            if(ok.role !== 1) {
                 history.push("/");
             }else {
                 history.push("/Admin");

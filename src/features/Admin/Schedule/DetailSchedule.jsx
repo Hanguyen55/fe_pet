@@ -6,7 +6,6 @@ import "../../../sass/RegisterService/ScheduleDetail.scss";
 import { formatDate } from "../../../function";
 export default function ScheduleDetail() {
   const { id } = useParams();
-  console.log("id", id);
 
   const [schedule, setSchedule] = useState(null);
 
@@ -14,7 +13,6 @@ export default function ScheduleDetail() {
     scheduleApi
       .getOne(id)
       .then((ok) => {
-        console.log("ok", ok);
         setSchedule(ok);
       })
       .catch((err) => {
@@ -34,7 +32,7 @@ export default function ScheduleDetail() {
         {schedule ? (
           <div className="container">
             <div className="schedule-detail">
-              <div className="title">Loại dịch vụ: {schedule.typeService}</div>
+              <div className="title">Loại dịch vụ: {schedule.serviceId}</div>
               <div className="form">
                 <p>
                   <div className="text-bold">Tên Người dùng</div>:{" "}
@@ -49,11 +47,11 @@ export default function ScheduleDetail() {
                 </p>
                 <p>
                   <div className="text-bold">Loại thú cưng</div>:{" "}
-                  {schedule.typePet}
+                  {schedule.petId}
                 </p>
                 <p>
                   <div className="text-bold">Cân nặng</div>:{" "}
-                  {schedule.typeWeight}
+                  {Number(schedule.weightId).toLocaleString()}
                 </p>
                 <p>
                   <div className="text-bold">Thời gian</div>:{" "}
@@ -61,7 +59,7 @@ export default function ScheduleDetail() {
                 </p>
                 <p>
                   <div className="text-bold">Tổng tiền</div>:{" "}
-                  {schedule.result} vnđ
+                  {Number(schedule.result).toLocaleString()} vnđ
                 </p>
               </div>
             </div>

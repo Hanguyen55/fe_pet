@@ -43,7 +43,6 @@ export default function DetailPet() {
     if (type === "pet") {
       petApi.getOne(id).then((ok) => {
         setData(ok);
-        console.log("ok",ok);
       });
     } else {
       productApi.getOne(id).then((ok) => {

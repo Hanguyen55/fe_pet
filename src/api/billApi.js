@@ -6,6 +6,10 @@ class BillApi {
     const url = "/bills";
     return axiosClient.get(url, { params });
   };
+  getRevenues = (params) => {
+    const url = "/bills/revenues";
+    return axiosClient.get(url, { params });
+  };
   getOne = (params) => {
     const url = `/bills/${params}`;
     return axiosClient.get(url).then((data) => {
@@ -17,7 +21,6 @@ class BillApi {
     return axiosClient
       .post(url, params)
       .then((data) => {
-        console.log("data bill",data);
         // messageShowSuccess("Thêm mới thành công!");
       })
       .catch((err) => {

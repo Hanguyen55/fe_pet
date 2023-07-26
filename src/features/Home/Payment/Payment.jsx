@@ -21,7 +21,6 @@ import productApi from "../../../api/productApi";
 import petApi from "../../../api/petApi";
 import userApi from "../../../api/userApi";
 import QR from "../../../images/qr.jpg";
-import { useForm } from "react-hook-form";
 import TextField from '@mui/material/TextField';
 
 export default function Payment({
@@ -35,7 +34,6 @@ export default function Payment({
                 setAddress(ok?.address)
                 setPhone(ok?.phone)
                 setCheckRadio(null)
-                setError(true);
           });
       }, [userInfor]);
   const [data, setData] = useState();
@@ -55,7 +53,6 @@ export default function Payment({
         message: "",
     },
   });
-  console.log(userInfor);
   const history = useHistory();
   const handleClose = () => {
     setCheckRadio(null)
@@ -79,7 +76,8 @@ export default function Payment({
     });
     var ship = (result/100) *5;
     // var all = result + ship;
-    return Number(result).toLocaleString();
+    // return Number(result).toLocaleString();
+    return result;
   };
 
   const handleGetShip = () => {
@@ -92,11 +90,18 @@ export default function Payment({
   };
 
   const handleRadioChange = (event) => {
+    if((event.target).value === null) {
+        setHelperText('Không được bỏ trống');
+        setError(true);
+       }
+        else {
+            setHelperText('');
+            setError(false);
+        }
     setCheckRadio((event.target).value)
   };
   const handleCheckPhone = (e) => {
-    setAddress(e.target.value)
-    if(typeof phone === 'string' && phone.length === 0){
+    if(typeof e === 'string' && e.length === 0){
         setErrors((prevState) => ({
             ...prevState,
             phone: {
@@ -104,7 +109,7 @@ export default function Payment({
                 status: true,
             }
           }));
-    } else if(phone.length === 11) {
+    } else if(e.length === 11) {
         setErrors((prevState) => ({
             ...prevState,
             phone: {
@@ -112,7 +117,7 @@ export default function Payment({
                 status: true,
             }
           }));
-    } else if(!phone.match(/(84|0[3|5|7|8|9])+([0-9]{8})\b/g)) {
+    } else if(!e.match(/(84|0[3|5|7|8|9])+([0-9]{8})\b/g)) {
         setErrors((prevState) => ({
             ...prevState,
             phone: {
@@ -129,11 +134,11 @@ export default function Payment({
             }
           }));
     }
+    setPhone(e)
   };
-  const handleAgree = () => {
-   
-
-    if(typeof address === 'string' && address.length === 0){
+  
+  const handleCheckAddress = (e) => {
+    if(typeof e === 'string' && e.length === 0){
         setErrors((prevState) => ({
             ...prevState,
             address: {
@@ -141,7 +146,7 @@ export default function Payment({
                 status: true,
             }
           }));
-    } else if(address.length === 255) {
+    } else if(e.length === 255) {
         setErrors((prevState) => ({
             ...prevState,
             address: {
@@ -158,13 +163,14 @@ export default function Payment({
             }
           }));
     }
+    setAddress(e)
+  }
+    const handleAgree = () => {
    if(checkRadio === null) {
     setHelperText('Không được bỏ trống');
     setError(true);
    }
     else {
-        // setOpenPopconfirm(true);
-        // setCheckRadio(null)
         setHelperText('');
         setError(false);
     }
@@ -209,7 +215,7 @@ export default function Payment({
           } else {
             quantityPet.push({
               id: el.id,
-              checkAdmin: el.checkAdmin,
+            //   checkAdmin: el.checkAdmin,
               type: el.type,
               quantity: el.quantity - el.quantityCurrent,
             });
@@ -259,7 +265,7 @@ export default function Payment({
             </div>
           </div>
           {/* <div className="">Phí ship: {handleGetShip()}vnđ</div> */}
-          <div className="result">Thành tiền: {handleGetResult()}vnđ</div>
+          <div className="result">Thành tiền: {Number(handleGetResult()).toLocaleString()}vnđ</div>
           <form>
           <label htmlFor="">Hình thức thanh toán</label>
           <FormControl error={error} >
@@ -282,7 +288,7 @@ export default function Payment({
                 label=" "
                 InputLabelProps={{shrink: false}}
                 value={address}
-                onChange={(e) => handleCheckPhone(e)}
+                onChange={(e) => handleCheckAddress(e.target.value)}
             />
             {errors.address.status && (
                     <span className="text-danger">{errors.address.message}</span>
@@ -294,7 +300,7 @@ export default function Payment({
                 label=" "
                 InputLabelProps={{shrink: false}}
                 value={phone}
-                onChange={(e) => setPhone(e.target.value)}
+                onChange={(e) => handleCheckPhone(e.target.value)}
             />
             {errors.phone.status && (
                     <span className="text-danger">{errors.phone.message}</span>

@@ -12,6 +12,10 @@ class ImgPetApi {
       return data.data;
     });
   };
+  getAllPet = (params) => {
+    const url = "/imgPets/all";
+    return axiosClient.get(url, { params });
+  };
   postimgPet = (params) => {
     const url = "/imgPets";
     return axiosClient

@@ -1,4 +1,16 @@
-.input-admin-price {
-    display: flex;
-    // justify-content: flex-start;
+.CreateAdmin{
+    width: 100%;
+    .input-admin-price {
+        display: flex;
+        justify-content: flex-start;
+        width: 100%;
+    }
+    .input-admin-price > div:nth-child(1) {
+        margin-right: 2rem;
+        width: 50%;
+    }
+    .input-admin-price > div:nth-child(2) {
+        margin-left: 2rem;
+        width: 50%;
+    }
 }

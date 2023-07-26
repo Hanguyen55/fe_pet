@@ -5,7 +5,6 @@ export const clickActive = (ul, line, liIndex) => {
   listLi.forEach((item, index) => {
     item.onclick = function () {
       const listActive = ul.querySelector("li>a.active");
-      console.log("listActive",listActive);
       lineSlide(index, listActive);
       listActive.classList.remove("active");
       item.classList.add("active");
@@ -14,7 +13,6 @@ export const clickActive = (ul, line, liIndex) => {
 
   const lineSlide = (i, liActive) => {
     let index = i;
-    console.log("liActive",liActive);
     let heightLine = liActive.offsetHeight;
     line.style.height = heightLine + "px";
     line.style.top = resultTop(index) + "px";

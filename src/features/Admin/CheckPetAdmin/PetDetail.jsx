@@ -15,7 +15,7 @@ export default function PetDetail() {
     <div className="PetDetail">
       <div className="heading">
         <div className="heading__title">
-          <h3>Kiểm tra thú cưng</h3>
+          <h3>Thú cưng</h3>
         </div>
         <div className="heading__hr"></div>
       </div>

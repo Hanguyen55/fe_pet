@@ -1,10 +1,13 @@
 import React from "react";
 import { Route, Switch, useRouteMatch } from "react-router-dom";
 import Bill from "../bill/bill";
+import BillCreate from "../bill/billCreate";
 import BillDetail from "../bill/billDetail";
 import AddCategory from "../Category/AddCategory";
 import Category from "../Category/Category";
-import category from "../Category/Category";
+import AddCategoryPet from "../CategoryPet/AddCategoryPet";
+import CategoryPet from "../CategoryPet/CategoryPet";
+// import category from "../Category/Category";
 import CheckPetAdmin from "../CheckPetAdmin/CheckPetAdmin";
 import PetDetail from "../CheckPetAdmin/PetDetail";
 import AddContact from "../Contact/AddContact";
@@ -38,9 +41,20 @@ export default function NavContent() {
   return (
     <div className="NavContent">
       <Switch>
-        {/* <Route exact path={`${path}`} component={Statistical} /> */}
-        {/* <Route exact path={`${path}/CheckPet`} component={CheckPetAdmin} /> */}
-        <Route exact path={`${path}`} component={CheckPetAdmin} />
+        <Route exact path={`${path}`} component={Statistical} />
+        <Route exact path={`${path}/CheckPet`} component={CheckPetAdmin} />
+        <Route exact path={`${path}/CategoryPet`} component={CategoryPet} />
+        <Route
+          exact
+          path={`${path}/CategoryPet/AddCategoryPet`}
+          component={AddCategoryPet}
+        />
+        <Route
+          exact
+          path={`${path}/CategoryPet/AddCategoryPet/:id`}
+          component={AddCategoryPet}
+        />
+        {/* <Route exact path={`${path}`} component={CheckPetAdmin} /> */}
         <Route
           exact
           path={`${path}/CheckPet/PetDetail/:id`}
@@ -50,6 +64,7 @@ export default function NavContent() {
         <Route exact path={`${path}/New/AddNew`} component={AddNew} />
         <Route exact path={`${path}/New/AddNew/:id`} component={AddNew} />
         <Route exact path={`${path}/Bill`} component={Bill} />
+        <Route exact path={`${path}/Bill/CreateBill`} component={BillCreate} />
         <Route
           exact
           path={`${path}/Bill/DetailBill/:id`}
@@ -76,8 +91,8 @@ export default function NavContent() {
           component={AddCategory}
         />
         <Route
-          exact
-          path={`${path}/CreatePet`}
+        //   exact
+          path={`${path}/CheckPet/CreatePet`}
           component={CreatePet}
         />
         <Route exact path={`${path}/Product`} component={Product} />

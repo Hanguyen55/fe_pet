@@ -48,7 +48,6 @@ export default function Register() {
         setCheckRadio((event.target).value)
       };
   const onSubmit = async (data) => {
-    console.log("datauser",data,checkRadio);
     if(checkRadio === null) {
         setHelperText('Không được bỏ trống');
         setError(true);

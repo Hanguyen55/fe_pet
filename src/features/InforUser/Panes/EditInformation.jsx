@@ -24,7 +24,6 @@ export default function EditInformation() {
     formState: { errors },
   } = useForm();
   const hangdelimage = (e) => {
-    console.log("hello");
     setState({
       ...state,
       linkImg: URL.createObjectURL(e.target.files[0]),

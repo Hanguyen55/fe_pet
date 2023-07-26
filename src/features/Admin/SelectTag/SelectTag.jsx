@@ -4,7 +4,6 @@ export default function SelectTag({ dataTag, onchangeTag, TagDefault }) {
   const inputEl = useRef(null);
   const dataSelectEl = useRef(null);
   const blurEl = useRef(null);
-  // console.log(TagDefault);
   const idTagDefault = (e) => {
     var arr = [];
     for (let i = 0; i < e.length; i++) {
@@ -46,7 +45,6 @@ export default function SelectTag({ dataTag, onchangeTag, TagDefault }) {
     let ListTag = dataSelectEl.querySelectorAll(".tag");
 
     inputEl.onclick = function () {
-      console.log(showData);
       if (showData === 1) {
         dataSelectEl.style.display = "block";
         blurEl.classList.add("blur");

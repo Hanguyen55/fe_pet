@@ -31,6 +31,7 @@ export default function Schedule() {
       .catch((err) => {
         console.log(err);
       });
+      scheduleApi.getRevenueService({ status: 2 })
   }, [load, page]);
   const history = useHistory();
   const handleStatus = async (e,id) => {

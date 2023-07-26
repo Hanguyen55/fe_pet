@@ -9,7 +9,6 @@ import { Container } from "@material-ui/core";
 export default function BillDetail() {
   const { id } = useParams();
   const { url } = useRouteMatch();
-  console.log("url",url);
   const [data, setdata] = useState(null);
   const [adminOrUser, setAdminOrUser] = useState("Admin");
   const [bill, setBill] = useState(null);

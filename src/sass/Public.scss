@@ -19,6 +19,14 @@
     }
 }
 
+.heading-hr-tille {
+    width: 200px;
+    height: 2px;
+    background-color: $colorOrange;
+}
+.input-admin-tille {
+    margin: 1.5rem 0 3rem;
+}
 .heading-detail {
     margin-bottom: 2rem;
     &__title h3 {

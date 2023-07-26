@@ -15,19 +15,19 @@ export default function AddPriceService() {
   });
   const [dataWeight, setDataWeight] = useState([]);
   const [dataService, setDataService] = useState([]);
-  const [typeService, setTypeService] = useState();
-  const [typeWeight, setTypeWeight] = useState();
+  const [serviceId, setTypeService] = useState();
+  const [weightId, setTypeWeight] = useState();
   const [load, setLoad] = useState(false);
   const [error, setError] = useState({
     price: {
         status: false,
         message: "",
     },
-      typeService: {
+      serviceId: {
         status: false,
         message: "",
     },
-      typeWeight: {
+      weightId: {
         status: false,
         message: "",
     },
@@ -112,10 +112,10 @@ export default function AddPriceService() {
           }));
     }
 
-    if(typeWeight === undefined || Object.keys(typeWeight).length === 0){
+    if(weightId === undefined || Object.keys(weightId).length === 0){
         setError((prevState) => ({
             ...prevState,
-            typeWeight: {
+            weightId: {
                 message: "Không được bỏ trống!",
                 status: true,
             }
@@ -123,17 +123,17 @@ export default function AddPriceService() {
     } else {
         setError((prevState) => ({
             ...prevState,
-            typeWeight: {
+            weightId: {
                 message: "",
                 status: false,
             }
           }));
     }
 
-    if(typeService === undefined || Object.keys(typeService).length === 0){
+    if(serviceId === undefined || Object.keys(serviceId).length === 0){
         setError((prevState) => ({
             ...prevState,
-            typeService: {
+            serviceId: {
                 message: "Không được bỏ trống!",
                 status: true,
             }
@@ -141,27 +141,27 @@ export default function AddPriceService() {
     } else {
         setError((prevState) => ({
             ...prevState,
-            typeService: {
+            serviceId: {
                 message: "",
                 status: false,
             }
           }));
     }
     if(!error.price.status
-        && !error.typeService.status
-        && !error.typeWeight.status ) {
+        && !error.serviceId.status
+        && !error.weightId.status ) {
         if (id) {
         await priceServicesApi.editPriceServices({
             price: data.price,
-            weightId : typeWeight.value,
-            serviceId : typeService.value,
+            weightId : weightId.value,
+            serviceId : serviceId.value,
             id: id,
         });
         } else {
         await priceServicesApi.postPriceServices({
             price: data.price,
-            weightId : typeWeight.value,
-            serviceId : typeService.value,
+            weightId : weightId.value,
+            serviceId : serviceId.value,
         });
         }
         history.push("/Admin/PriceService");
@@ -171,11 +171,7 @@ export default function AddPriceService() {
     <div className="CreateAdmin">
       <div className="heading">
         <div className="heading__title">
-            {id ? (
-            <h3>Sửa giá dịch vụ</h3>
-          ) : (
-            <h3>Thêm giá dịch vụ</h3>
-          )}
+        <h3>{!id ? "Thêm giá dịch vụ" : "Sửa giá dịch vụ"}</h3>
         </div>
         <div className="heading__hr"></div>
       </div>
@@ -186,12 +182,12 @@ export default function AddPriceService() {
           <Select
                   closeMenuOnSelect={true}
                   onChange={onchangeTypeService}
-                //   defaultValue={[{ value: typeService?.value, label: typeService?.value }]}
-                value={typeService}
+                //   defaultValue={[{ value: serviceId?.value, label: serviceId?.value }]}
+                value={serviceId}
                   options={dataService}
                 />
-                {error.typeService.status && (
-                  <span className="text-danger">{error.typeService.message}</span>
+                {error.serviceId.status && (
+                  <span className="text-danger">{error.serviceId.message}</span>
                 )}
         </div>
         <div className="input-admin">
@@ -199,11 +195,11 @@ export default function AddPriceService() {
           <Select
                   closeMenuOnSelect={true}
                   onChange={onchangeWeight}
-                  value={typeWeight}
+                  value={weightId}
                   options={dataWeight}
                 />
-                {error.typeWeight.status && (
-                  <span className="text-danger">{error.typeWeight.message}</span>
+                {error.weightId.status && (
+                  <span className="text-danger">{error.weightId.message}</span>
                 )}
         </div>
         <div className="input-admin">

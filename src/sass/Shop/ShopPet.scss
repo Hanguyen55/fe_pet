@@ -1,4 +1,8 @@
 @import "../Variable.scss";
+$colorNavLeft: #637381;
+$colorHover: #fab13b;
+$colorHoverBgr:rgb(155, 95, 0)b;
+$colorBgr: #f2f3f5;
 .Shop {
   .left {
     background-color: #f4f4f4;
@@ -49,6 +53,11 @@
         margin-bottom: 0.5rem;
       }
       .content {
+        .item:hover {
+            background-color: $colorHoverBgr;
+            font-weight: 600;
+            color: $colorHover;
+          }
         .item {
           margin: 0 0 1rem 1rem;
           cursor: pointer;

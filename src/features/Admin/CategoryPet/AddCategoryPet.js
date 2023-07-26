@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useHistory, useParams } from "react-router";
-import categoryApi from "../../../api/CategoryApi";
+import CategoryPetApi from "../../../api/CategoryPetApi";
 import { storage } from "../../../firebase";
 import { messageShowErr } from "../../../function";
 import Spinner from "../Spin/Spinner";
 import { camera } from "../svg/IconSvg";
 import { Container, TextField } from "@material-ui/core";
 
-export default function AddCategory() {
+export default function AddCategoryPet() {
   const { id } = useParams();
   const [state, setState] = useState({
     loadSpin: false,
@@ -123,7 +123,7 @@ export default function AddCategory() {
   };
   useEffect(() => {
     if (id) {
-      categoryApi.getOne(id).then((ok) => {
+        CategoryPetApi.getOne(id).then((ok) => {
         setState({
           ...state,
           name: ok.name,
@@ -151,21 +151,21 @@ export default function AddCategory() {
               .getDownloadURL();
         }
           if(id) {
-            await categoryApi.editcategory({
+            await CategoryPetApi.editcategory({
                 name: name,
                 description: description,
                 avatar: anh,
                 id: id,
               });
           } else {
-            await categoryApi.postcategory({
+            await CategoryPetApi.postcategory({
                 name: name,
                 description: description,
                 avatar: anh,
                 status: 0,
               });
           }
-      history.push("/Admin/Category");
+      history.push("/Admin/CategoryPet");
     } else {
         if(typeof name === 'string' && name.length === 0){
             setError((prevState) => ({
@@ -200,7 +200,7 @@ export default function AddCategory() {
     <div className="CreateAdmin">
       <div className="heading">
         <div className="heading__title">
-        <h3>{!id ? "Thêm danh mục sản phẩm" : "Sửa danh mục sản phẩm"}</h3>
+        <h3>{!id ? "Thêm danh mục thú cưng" : "Sửa danh mục thú cưng"}</h3>
         </div>
         <div className="heading__hr"></div>
       </div>

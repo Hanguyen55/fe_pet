@@ -9,7 +9,6 @@ class UserApi {
     const url = `/users/checkUser`;
     if (localStorage.getItem("tokenPet")) {
       return axiosClient.get(url).then((data) => {
-        console.log("đây là tt kgdfgdfgh",data.data);
         return data.data.user;
       });
     } else {
@@ -19,7 +18,6 @@ class UserApi {
   getOne = (params) => {
     const url = `/users/${params}`;
     return axiosClient.get(url).then((data) => {
-        console.log("đây là tt 123",data.data);
       return data.data;
     });
   };

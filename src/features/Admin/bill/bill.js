@@ -2,12 +2,13 @@ import { Pagination } from "@material-ui/lab";
 import { MenuItem, TextField } from "@material-ui/core";
 import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router";
-import { useRouteMatch } from "react-router-dom";
+import { Link, useRouteMatch } from "react-router-dom";
 import billApi from "../../../api/billApi";
 import { countPagination, formatDate } from "../../../function";
 import Spinner from "../Spin/Spinner";
 import Table from "../Table/Table";
-import Select from "react-select";
+import { add } from "../svg/IconSvg";
+
 export default function Bill() {
   const { url } = useRouteMatch();
   const titleTable = [
@@ -23,24 +24,21 @@ export default function Bill() {
     { value: 1, label: "Đang được gửi" },
     { value: 2, label: "Đã nhận" },
   ];
-  const [typeStatus, setTypeStatus] = useState("chó");
   const [value, setValue] = useState("");
   const [data, setdata] = useState(null);
   const [page, setPage] = useState(1);
   const [load, setLoad] = useState(false);
-  const onchangeTypeStatus = (e) => {
-    setTypeStatus(e.label);
-  };
+ 
   useEffect(() => {
     billApi
       .getAll({ page: page })
       .then((ok) => {
         setdata(ok.data);
-        console.log("test",ok.data);
       })
       .catch((err) => {
         console.log(err);
       });
+      billApi.getRevenues({ status: 2 })
   }, [load, page]);
   const history = useHistory();
   const handleStatus = async (e,id) => {
@@ -61,11 +59,18 @@ export default function Bill() {
     <div className="AdminTable">
       <div className="heading">
         <div className="heading__title">
-          <h3>Hoá đơn</h3>
+          <h3>Hóa đơn</h3>
         </div>
         <div className="heading__hr"></div>
       </div>
-
+      <div className="add-admin">
+            <button>
+            <Link to={`${url}/CreateBill`}>
+                <div className="icon">{add}</div>
+                <div className="text">Thêm hóa đơn</div>
+            </Link>
+            </button>
+        </div>
       {data !== null ? (
         <div>
           <Table

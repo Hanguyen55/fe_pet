@@ -24,12 +24,12 @@ export const checkArrayEquar = (a, b) => {
   }
 };
 export const getValue = (data,value) => {
-    var datavalue;
+    var dataValue;
     data.forEach((el) => {
         if(el.id === value)
-        datavalue = el;
+        dataValue = el;
     });
-      return datavalue;
+      return dataValue;
   };
 export const countPagination = (e, i) => {
   if (i) {

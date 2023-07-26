@@ -49,11 +49,7 @@ export default function AddSocialNetwork() {
     <div className="CreateAdmin">
       <div className="heading">
         <div className="heading__title">
-          {id ? (
-            <h3>Sửa mạng xã hội</h3>
-          ) : (
-            <h3>Thêm mạng xã hội</h3>
-          )}
+        <h3>{!id ? "Thêm mạng xã hội" : "Sửa mạng xã hội"}</h3>
         </div>
         <div className="heading__hr"></div>
       </div>

@@ -47,11 +47,7 @@ export default function AddService() {
     <div className="CreateAdmin">
       <div className="heading">
         <div className="heading__title">
-          {id ? (
-            <h3>Sửa dịch vụ</h3>
-          ) : (
-            <h3>Thêm dịch vụ</h3>
-          )}
+        <h3>{!id ? "Thêm dịch vụ" : "Sửa dịch vụ"}</h3>
         </div>
         <div className="heading__hr"></div>
       </div>

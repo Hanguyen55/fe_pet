@@ -66,17 +66,23 @@ export default function NavMenu() {
         <div className="title">Tổng quan</div>
         <ul ref={ulEL}>
           <div className="line" ref={lineEL}></div>
-          {/* <li>
+          <li>
             <Link to={`${path}`} className="active" id="">
               <div className="icon">{app}</div>
               <div className="text">Thống kê</div>
             </Link>
-          </li> */}
+          </li>
           <li>
-            {/* <Link to={`${path}/CheckPet`} className="active" id=""> */}
-            <Link to={`${path}`} className="active" id="">
+            <Link to={`${path}/CategoryPet`} id="CategoryPet">
+              <div className="icon">{category}</div>
+              <div className="text">Danh mục thú cưng</div>
+            </Link>
+          </li>
+          <li>
+            <Link to={`${path}/CheckPet`} id="CheckPet">
+            {/* <Link to={`${path}`} className="active" id=""> */}
               <div className="icon">{useCheck}</div>
-              <div className="text">Kiểm tra thú cưng</div>
+              <div className="text">Thú cưng</div>
             </Link>
           </li>
           <li>

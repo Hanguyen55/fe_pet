@@ -6,6 +6,10 @@ class PriceServicesApi {
     const url = "/priceServices";
     return axiosClient.get(url, { params });
   };
+  getAllPrice = (params) => {
+    const url = "/priceServices/all";
+    return axiosClient.get(url, { params });
+  };
   getOne = (params) => {
     const url = `/priceServices/${params}`;
     return axiosClient.get(url).then((data) => {

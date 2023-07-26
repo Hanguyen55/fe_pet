@@ -6,11 +6,13 @@ import { messageShowErr, messageShowSuccess } from "../../../function";
 import "../../../sass/Home/Cart.scss";
 import { cart } from "../../Admin/svg/IconSvg";
 import Payment from "../Payment/Payment";
+import { Container, TextField } from "@material-ui/core";
 
 export default function Cart() {
   const [toggleDrawer, setToggleDrawer] = useState(false);
   const [statusDialog, setStatusDialog] = useState(false);
   const listCart = useSelector((state) => state.cart.listCart);
+  console.log("listCart",listCart);
   const userInfor = useSelector((state) => state.user.userInfor);
   const dispatch = useDispatch();
   const handleDelete = (id) => {
@@ -78,12 +80,16 @@ export default function Cart() {
                 </div>
                 <div className="dg">₫{Number(ok.price).toLocaleString()}</div>
                 {/* <div className="sl">
-                <input
-                    type="number"
-                    classname="input_quantity"
-                    value={ok.quantityCurrent}
-                    onChange={hangdleQuantityNumber}
-                />
+                <TextField
+                label=""
+                // id="outlined-basic"
+                id="outlined-number"
+                variant="outlined"
+                type="number"
+                InputLabelProps={{shrink: false}}
+                value={ok.quantityCurrent}
+                // onChange={(e) => handleCheckQuantity(e.target.value)}
+            />
                 </div> */}
                 <div className="sl">{ok.quantityCurrent}</div>
                 <div className="st">

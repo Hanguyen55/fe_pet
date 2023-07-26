@@ -4,6 +4,19 @@
         padding: 2rem 11rem;
     }
     .form {
+        .input-admin {
+            display: flex;
+            // flex-direction: column;
+            // margin: 0.5rem 0;
+            label {
+              font-size: 1rem;
+              margin-bottom: 0.5rem;
+              font-weight: 500;
+            }
+        }
+        // .input-admin > *{
+        //     margin: 0;
+        // }
         .result {
             padding: 1rem 0;
             color: #f50057;

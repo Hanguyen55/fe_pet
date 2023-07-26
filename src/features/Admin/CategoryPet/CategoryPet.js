@@ -1,58 +1,48 @@
 import { Pagination } from "@material-ui/lab";
 import React, { useEffect, useState } from "react";
+import { useHistory } from "react-router";
 import { Link, useRouteMatch } from "react-router-dom";
-import petApi from "../../../api/petApi";
-import {
-  countPagination,
-  formatDate,
-  messageShowErr,
-  messageShowSuccess,
-} from "../../../function";
+import CategoryPetApi from "../../../api/CategoryPetApi";
+import { countPagination, formatDate } from "../../../function";
 import Spinner from "../Spin/Spinner";
-import { check, notCheck, statusOff, statusOn, add } from "../svg/IconSvg";
+import { add, statusOff, statusOn } from "../svg/IconSvg";
 import Table from "../Table/Table";
-export default function CheckPetAdmin() {
+export default function CategoryPet() {
   const { url } = useRouteMatch();
   const titleTable = [
-    { title: "Tên", name: "name" },
-    { title: "Người dùng", name: "user" },
+    { title: "Tên danh mục", name: "name" },
+    { title: "Ảnh", name: "avatar" },
     { title: "Thời gian", name: "time" },
-    { title: "Duyệt", name: "action" },
+    { title: "action", name: "action" },
   ];
 
-  const [data, setData] = useState(null);
+  const [data, setdata] = useState(null);
   const [page, setPage] = useState(1);
   const [load, setLoad] = useState(false);
   useEffect(() => {
-    petApi
-      .getCheckAdmin({ page: page })
+    CategoryPetApi
+      .getAll({ page: page })
       .then((ok) => {
-        setData(ok);
+        setdata(ok.data);
       })
       .catch((err) => {
         console.log(err);
       });
   }, [load, page]);
+  const history = useHistory();
+  const onchangeEdit = (e) => {
+    history.push(`${url}/AddCategoryPet/${e}`);
+  };
+  const onchangeDelete = async (e) => {
+    await CategoryPetApi.deletecategory(e);
+    setLoad(!load);
+  };
   const onchangeStatus = (e, id) => {
-    setData(null);
-    if (e === 1) {
-      petApi
-        .editpet({ status: 0, id: id })
-        .then((data) => {
-          messageShowSuccess("Sửa thành công!");
-        })
-        .catch((err) => {
-          messageShowErr("Có lỗi xảy ra!");
-        });
+    setdata(null);
+    if (e === 0) {
+      CategoryPetApi.editcategory({ status: 1, id: id });
     } else {
-      petApi
-        .editpet({ status: 1, id: id })
-        .then((data) => {
-          messageShowSuccess("Sửa thành công!");
-        })
-        .catch((err) => {
-          messageShowErr("Có lỗi xảy ra!");
-        });
+      CategoryPetApi.editcategory({ status: 0, id: id });
     }
     setTimeout(() => {
       setLoad(!load);
@@ -62,42 +52,47 @@ export default function CheckPetAdmin() {
     <div className="AdminTable">
       <div className="heading">
         <div className="heading__title">
-          <h3>Thú cưng</h3>
+          <h3>Danh mục thú cưng</h3>
         </div>
         <div className="heading__hr"></div>
       </div>
       <div className="add-admin">
-            <button>
-            <Link to={`${url}/CreatePet`}>
-                <div className="icon">{add}</div>
-                <div className="text">Thêm thú cưng</div>
-            </Link>
-            </button>
-        </div>
+        <button>
+          <Link to={`${url}/AddCategoryPet`}>
+            <div className="icon">{add}</div>
+            <div className="text">Thêm danh mục thú cưng</div>
+          </Link>
+        </button>
+      </div>
       {data !== null ? (
         <div>
           <Table
             titleTable={titleTable}
-            hidentDot={true}
+            onchangeDelete={onchangeDelete}
+            onchangeEdit={onchangeEdit}
             dataSource={data.rows.map((ok, index) => ({
               key: ok.id,
-              name: <Link to={`${url}/PetDetail/${ok.id}`}>{ok.name}</Link>,
+              name: ok.name,
+              avatar: (
+                <div className="img-table">
+                  <img src={ok.avatar} />
+                </div>
+              ),
               time: formatDate(ok.createdAt),
-              user: ok.User.firstName + " " + ok.User.lastName,
               action:
-                ok.status === 1 ? (
+                ok.status !== 0 ? (
                   <div
                     className="status-icon"
                     onClick={() => onchangeStatus(1, ok.id)}
                   >
-                    {check}
+                    {statusOn}
                   </div>
                 ) : (
                   <div
                     className="status-icon"
                     onClick={() => onchangeStatus(0, ok.id)}
                   >
-                    {notCheck}
+                    {statusOff}
                   </div>
                 ),
             }))}

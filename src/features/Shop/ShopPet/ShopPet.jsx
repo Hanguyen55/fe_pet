@@ -4,6 +4,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useRouteMatch } from "react-router-dom";
 import categoryApi from "../../../api/CategoryApi";
+import categoryPetApi from "../../../api/CategoryPetApi";
 import petApi from "../../../api/petApi";
 import {
   countPagination,
@@ -22,26 +23,30 @@ export default function ShopPet() {
   const [page, setPage] = useState(1);
   const [data, setData] = useState(null);
   const [name, setName] = useState(null);
-  const [type, setType] = useState(null);
+  const [CategoryPetId, setType] = useState(1);
+  const [categoryPet, setCategoryPet] = useState(null);
   const [petOrProduct, setPetOrProduct] = useState("pet");
   const [category, setCategory] = useState("Thức ăn cho chó");
   const [countPet, setCountPet] = useState(null);
   const typingTimeout = useRef(null);
   const listCart = useSelector((state) => state.cart.listCart);
   useEffect(() => {
-    petApi.getShop({ page, type, category, petOrProduct, name }).then((ok) => {
+    petApi.getShop({ page, CategoryPetId, category, petOrProduct, name }).then((ok) => {
       setData(ok.data);
-      console.log("type",type);
     });
-  }, [page, type, category, petOrProduct, name]);
+    categoryPetApi.countTypePet().then((ok) => {
+        let sum = 0;
+        ok.data.forEach((el) => {
+            sum += el.count;
+        })
+        setCategoryPet(ok.data);
+        setCountPet(sum)
+      });
+  }, [page, CategoryPetId, category, petOrProduct, name]);
 
   useEffect(() => {
     categoryApi.getAll({ status: 1 }).then((ok) => {
       setCategoryData(ok.data.rows);
-    });
-    petApi.countTypePet().then((ok) => {
-      setCountPet(ok);
-      console.log("dataaa",ok);
     });
     window.scrollTo(0, 0);
   }, []);
@@ -59,7 +64,6 @@ export default function ShopPet() {
   const onChangeTypePet = (e) => {
     setPetOrProduct("pet");
     setType(e);
-    console.log("type",type);
   };
 
   const onChangeCategory = (e) => {
@@ -106,7 +110,17 @@ export default function ShopPet() {
               <div className="category">
                 <div className="title">Thú cưng</div>
                 <div className="content">
-                  <div className="item" onClick={() => onChangeTypePet("chó")}>
+                {categoryPet?.map((ok, index) => (
+                    <div
+                      className="item"
+                      onClick={() => onChangeTypePet(ok.id)}
+                      key={index}
+                    >
+                       <div className="name">{ok.name}</div>
+                        <div className="count">{ok.count}</div>
+                    </div>
+                  ))}
+                  {/* <div className="item" onClick={() => onChangeTypePet("chó")}>
                     <div className="name">Chó</div>
                     <div className="count">{countPet?.countDog}</div>
                   </div>
@@ -117,10 +131,10 @@ export default function ShopPet() {
                   <div className="item" onClick={() => onChangeTypePet("khác")}>
                     <div className="name">Khác</div>
                     <div className="count">{countPet?.countOther}</div>
-                  </div>
+                  </div> */}
                   <div className="item" onClick={() => onChangeTypePet(null)}>
                     <div className="name">Tất cả</div>
-                    <div className="count">{countPet?.countAll}</div>
+                    <div className="count">{countPet}</div>
                   </div>
                 </div>
               </div>

@@ -11,6 +11,10 @@ class ImageProductApi {
       return data.data;
     });
   };
+  getAllProduct = (params) => {
+    const url = "/imageProducts/all";
+    return axiosClient.get(url, { params });
+  };
   postimageProduct = (params) => {
     const url = "/imageProducts";
     return axiosClient.post(url, params);
